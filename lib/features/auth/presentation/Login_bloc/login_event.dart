@@ -11,5 +11,5 @@ LoginSubmittedEvent({
   required this.password
 });
 @override
-List<Object> get props=>[username,password];
+List<Object?> get props=>[username,password];
 }

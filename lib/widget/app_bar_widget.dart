@@ -64,7 +64,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             style: context.textTheme.headlineMedium!.copyWith(
               color: context.isDark
                   ? AppColors.whiteColor
-                  : AppColors.blackColor,
+                  : AppColors.whiteColor,
             ),
           ),
       actions: [if (action.isNotEmpty) ...action, 10.horizontalSpace],

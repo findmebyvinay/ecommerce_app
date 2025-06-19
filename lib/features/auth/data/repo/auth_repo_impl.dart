@@ -14,6 +14,8 @@ class AuthRepoImpl extends AuthRepo{
   }){
     return getIt<ApiRequest>().getResponse(
       endPoint: _loginEndpoint,
-       apiMethods: ApiMethods.post);
+       apiMethods: ApiMethods.post,
+       body: {"username": username, "password": password},
+       );
   }
 }

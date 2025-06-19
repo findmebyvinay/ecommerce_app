@@ -33,7 +33,7 @@ class CreateTableQueries {
     gender TEXT,
     image TEXT,
     accessToken TEXT,
-    refreshToken TEXT,
+    refreshToken TEXT)
  """;
 
 //   static const String createProvincesTable =

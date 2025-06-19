@@ -14,4 +14,6 @@ class AppColors {
   static Color blueAccentColor = Colors.blue[800]!;
   static Color warningColor = Colors.yellow[800]!;
   static Color warningContanerColor = Colors.yellow[100]!;
+  static Color lightGreen = Colors.greenAccent[200]!;
+
 }

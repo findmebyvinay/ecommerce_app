@@ -6,6 +6,7 @@ import 'package:ecom_app/core/constants/typedef.dart';
 import 'package:ecom_app/core/routes/routes_name.dart';
 import 'package:ecom_app/core/services/get_it/service_locator.dart';
 import 'package:ecom_app/core/services/local_database/local_database_mixin.dart';
+import 'package:ecom_app/core/services/local_database/local_database_table.dart';
 import 'package:ecom_app/core/services/local_storage/shared_pref_data.dart';
 import 'package:ecom_app/core/services/navigation_service.dart';
 import 'package:ecom_app/features/auth/domain/model/user_model.dart';
@@ -53,24 +54,26 @@ emit(state.copyWith(
               log('Error parsing token: $e');
               rethrow;
             }
-            // try {
+            try {
               
-            //     final userData = data['data'] as Map<String, dynamic>;
-            //     userModel = UserModel.fromJson(userData);
-            //     // Save user data to local database
+                if(l.containsKey('data')){
+                    final userData = l['data'] as Map<String,dynamic>;
+                userModel = UserModel.fromJson(userData);
+                // Save user data to local database
+                  insertMapData(
+                    LocalDatabaseTable.users,
+                    userModel.toJson(),
+                  ).catchError((error) {
+                    log('Error saving user data: $error');
+                  });
+                  log('Successfully saved inside database:$userData');
+                }              
+                  
 
-                
-            //       insertMapData(
-            //         LocalDatabaseTable.users,
-            //         userModel.toJson(),
-            //       ).catchError((error) {
-            //         log('Error saving user data: $error');
-            //       });
-
-            // } catch (e) {
-            //   log('Error parsing user data: $e');
-            //   rethrow;
-            // }
+            } catch (e) {
+              log('Error parsing user data: $e');
+              rethrow;
+            }
           }
            }
       catch(e){

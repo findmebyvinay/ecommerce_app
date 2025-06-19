@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:ecom_app/core/services/local_database/local_database_table.dart';
 import 'package:path/path.dart' as path;
 import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 class LocalDatabaseService {
   static final LocalDatabaseService _instance =
@@ -33,6 +35,13 @@ class LocalDatabaseService {
   }
 
   Future<Database> _initializeDatabase() async {
+    if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+  } else {
+    // Use default sqflite for mobile
+    databaseFactory = databaseFactoryOrNull;
+  }
     try {
       String dbPath = await _getDbPath();
       return await openDatabase(dbPath, version: 1, onCreate: _onCreate);

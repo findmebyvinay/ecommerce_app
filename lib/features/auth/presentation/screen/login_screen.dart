@@ -86,8 +86,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         print('Button Tapped');
                         
                        getIt<LoginBloc>().add(LoginSubmittedEvent(
-                          username: _usernameController.text.trim(),
-                           password: _passwordController.text.trim()));
+                          username: _usernameController.text,
+                           password: _passwordController.text));
                            print('Login Button Tapped');
                       }
                     })
