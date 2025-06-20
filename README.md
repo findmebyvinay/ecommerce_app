@@ -1,16 +1,33 @@
 # ecom_app
 
-A new Flutter project.
+This is my practice project where i'm trying various RESTful API's from Dummyjson.
+I'll provide details about this project below:
 
-## Getting Started
+1: At first i have created the folder structure for this project.
+   This is a clean architecture structure which is divide into:
+   - Core
+   - Features
+   - Widget
+Inside of Core it is divide into:
+   - bloc
+   - common
+   - constants
+   - extension
+   - flavor
+   - mixin
+   - routes
+   - services
+   - utils
+Inside feature it is divided into:
+   - data
+   - domain
+   - presentation/bloc/screen
 
-This project is a starting point for a Flutter application.
+2: I have created a basic login page where i used dummyjson auth API for login.
+    -This page handles various validation.
+    - user must pass correct credentials to login.
+    - after successful login users access token is saved in the shared preference to remember 
+    user is logged in. Other data is stored in the database using sqflite.
+3: Next user navigates to the Dashboard Page.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+  Rest of the details to be continueed....
