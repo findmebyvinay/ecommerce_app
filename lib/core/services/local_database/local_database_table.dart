@@ -4,6 +4,7 @@ class LocalDatabaseConstants {
 
 class LocalDatabaseTable {
   static const String users = 'users';
+  static const String produts='products';
   // static const String provinces = 'provinces';
   // static const String districts = 'districts';
   // static const String municipality = 'municipality';
@@ -36,6 +37,34 @@ class CreateTableQueries {
     refreshToken TEXT)
  """;
 
+
+  static const String productsTable=
+  """
+      CREATE TABLE IF NOT EXISTS ${LocalDatabaseTable.produts}(
+      id INTEGER PRIMARY KEY,
+        title TEXT,
+        description TEXT,
+        category TEXT,
+        price REAL,
+        discountPercentage REAL,
+        rating REAL,
+        stock INTEGER,
+        tags TEXT,
+        brand TEXT,
+        sku TEXT,
+        weight INTEGER,
+        dimensions TEXT,
+        warrantyInformation TEXT,
+        shippingInformation TEXT,
+        availabilityStatus TEXT,
+        reviews TEXT,
+        returnPolicy TEXT,
+        minimumOrderQuantity INTEGER,
+        meta TEXT,
+        images TEXT,
+        thumbnail TEXT
+      )
+  """;
 //   static const String createProvincesTable =
 //       """
 // CREATE TABLE IF NOT EXISTS ${LocalDatabaseTable.provinces} (

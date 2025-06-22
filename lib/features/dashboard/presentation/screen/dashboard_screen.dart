@@ -1,13 +1,7 @@
-import 'package:ecom_app/core/extension/build_context_extension.dart';
-import 'package:ecom_app/core/extension/widget_extensions.dart';
-import 'package:ecom_app/core/routes/routes_name.dart';
-import 'package:ecom_app/core/services/get_it/service_locator.dart';
-import 'package:ecom_app/core/services/local_storage/shared_pref_data.dart';
-import 'package:ecom_app/core/services/navigation_service.dart';
+
+import 'package:ecom_app/features/products/presentation/screen/product_screen.dart';
 import 'package:ecom_app/features/profilepage/presentation/screen/profile_page.dart';
-import 'package:ecom_app/widget/button_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
@@ -20,7 +14,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   late final List<Widget> _pages;
   @override
   void initState() {
-    _pages=[ProfilePage(),];
+    _pages=[ProductScreen(),ProfilePage(),];
     super.initState();
     
   }
@@ -57,8 +51,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
           showSelectedLabels: true,
           type: BottomNavigationBarType.fixed,
           items: const [
+                         BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Product'),
             BottomNavigationBarItem(icon: Icon(Icons.people), label: 'Profile'),
-             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Dashboard'),
+
             
           ]),
     );

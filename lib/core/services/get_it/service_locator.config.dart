@@ -16,6 +16,10 @@ import 'package:shared_preferences/shared_preferences.dart' as _i460;
 import '../../../features/auth/data/repo/auth_repo_impl.dart' as _i732;
 import '../../../features/auth/domain/repo/auth_repo.dart' as _i913;
 import '../../../features/auth/presentation/Login_bloc/login_bloc.dart' as _i81;
+import '../../../features/products/data/product_repo_impl.dart' as _i385;
+import '../../../features/products/domain/repo/product_repo.dart' as _i186;
+import '../../../features/products/presentation/product_bloc/product_bloc.dart'
+    as _i125;
 import '../../bloc/app_open_cubit.dart' as _i150;
 import '../../bloc/internet_cubit.dart' as _i636;
 import '../../bloc/language_cubit.dart' as _i957;
@@ -49,7 +53,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i892.NavigationService>(() => _i892.NavigationService());
     gh.lazySingleton<_i609.ApiManager>(() => _i609.ApiManager());
     gh.lazySingleton<_i81.LoginBloc>(() => _i81.LoginBloc());
+    gh.lazySingleton<_i125.ProductBloc>(() => _i125.ProductBloc());
     gh.lazySingleton<_i324.SharedPrefData>(() => _i566.SharedPrefDataImpl());
+    gh.lazySingleton<_i186.ProductRepo>(() => _i385.ProductRepoImpl());
     gh.lazySingleton<_i913.AuthRepo>(() => _i732.AuthRepoImpl());
     gh.lazySingleton<_i942.SharedPrefsServices>(
       () => _i942.SharedPrefsServices(gh<_i460.SharedPreferences>()),

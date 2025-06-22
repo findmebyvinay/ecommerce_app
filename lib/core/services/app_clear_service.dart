@@ -8,7 +8,7 @@ import 'package:ecom_app/core/services/navigation_service.dart';
 
 class AppClearService {
   void clearAllData() async {
-    /// Clear Toekn Data
+    /// Clear Token Data
     getIt<SharedPrefData>().clearAuthToken();
     getIt<SharedPrefData>().clearAllSharedData();
 

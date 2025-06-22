@@ -2,10 +2,13 @@
 
 import 'dart:developer';
 
+import 'package:ecom_app/core/common/abs_normal_view.dart';
 import 'package:ecom_app/core/constants/app_colors.dart';
+import 'package:ecom_app/core/constants/enum.dart';
 import 'package:ecom_app/core/extension/build_context_extension.dart';
 import 'package:ecom_app/core/extension/widget_extensions.dart';
 import 'package:ecom_app/core/routes/routes_name.dart';
+import 'package:ecom_app/core/services/app_clear_service.dart';
 import 'package:ecom_app/core/services/get_it/service_locator.dart';
 import 'package:ecom_app/core/services/local_database/local_database_mixin.dart';
 import 'package:ecom_app/core/services/local_database/local_database_table.dart';
@@ -33,15 +36,23 @@ class _ProfilePageState extends State<ProfilePage>with LocalDatabaseOperationsMi
     
   }
   void getUser()async{
-    List<Map<String,dynamic>> userList=await getAllData(LocalDatabaseTable.users);
+     List<Map<String,dynamic>> userList=await getAllData(LocalDatabaseTable.users);
+     log('saved database data from userlist:$userList');
+   try{
     if(userList.isNotEmpty){
       userModel= UserModel.fromJson(userList.first);
-      log('firstname:${userModel?.firstName}');
+      log('firstname:${userModel?.firstName ?? 'no name available'}');
     }
     else{
       userModel=null;
       log('returning null in usermodel');
-    }
+    }   
+   }
+   catch(e){
+    
+      userModel=null;
+
+   }
   }
 
   @override
@@ -50,7 +61,6 @@ class _ProfilePageState extends State<ProfilePage>with LocalDatabaseOperationsMi
       appBar: AppBarWidget(
         title: 'User Profile',
         isCenterTitle: true,
-        backgroundColor: const Color.fromARGB(255, 5, 82, 9),
       ),
       body: Center(
         child: Column(
@@ -66,16 +76,6 @@ class _ProfilePageState extends State<ProfilePage>with LocalDatabaseOperationsMi
               height: 200,
               width: double.infinity,
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                colors: [
-                   const Color.fromARGB(255, 5, 82, 9).withValues(alpha: 0.5),
-                  Colors.green[300]!.withValues(alpha: 0.5),
-
-                  
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomLeft
-                ),
                 borderRadius: BorderRadius.circular(12)
               ),
               child: Column(
@@ -83,13 +83,14 @@ class _ProfilePageState extends State<ProfilePage>with LocalDatabaseOperationsMi
                   Row(
                     children: [
                       Text('Firstname:',
-                      style: context.textTheme.displaySmall?.copyWith(
-                        color: Colors.white 
+                      style: context.textTheme.bodyMedium?.copyWith(
+                        color: Colors.black 
                       ),),
                       const SizedBox(width: 5,),
                       Text('${userModel?.firstName}',
-                      style:context.textTheme.displaySmall?.copyWith(
-                        color: Colors.white
+                      style:context.textTheme.bodyMedium?.copyWith(
+                        color: Colors.black
+
                       ),
                       )
                     ],
@@ -107,8 +108,7 @@ class _ProfilePageState extends State<ProfilePage>with LocalDatabaseOperationsMi
                 width: double.infinity,
                 buttonColor:  const Color.fromARGB(255, 5, 82, 9),
               onTap: (){
-                getIt<NavigationService>().pushNamedAndRemoveUntil(RoutesName.loginScreen, false);
-                getIt<SharedPrefData>().clearAuthToken();
+                AppClearService().clearAllData();
               },
               lable: 'Logout',
               ),
