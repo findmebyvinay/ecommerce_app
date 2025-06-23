@@ -1,19 +1,12 @@
 
 
 import 'dart:developer';
-
-import 'package:ecom_app/core/common/abs_normal_view.dart';
 import 'package:ecom_app/core/constants/app_colors.dart';
-import 'package:ecom_app/core/constants/enum.dart';
 import 'package:ecom_app/core/extension/build_context_extension.dart';
 import 'package:ecom_app/core/extension/widget_extensions.dart';
-import 'package:ecom_app/core/routes/routes_name.dart';
 import 'package:ecom_app/core/services/app_clear_service.dart';
-import 'package:ecom_app/core/services/get_it/service_locator.dart';
 import 'package:ecom_app/core/services/local_database/local_database_mixin.dart';
 import 'package:ecom_app/core/services/local_database/local_database_table.dart';
-import 'package:ecom_app/core/services/local_storage/shared_pref_data.dart';
-import 'package:ecom_app/core/services/navigation_service.dart';
 import 'package:ecom_app/features/auth/domain/model/user_model.dart';
 import 'package:ecom_app/widget/app_bar_widget.dart';
 import 'package:ecom_app/widget/button_widget.dart';
@@ -29,6 +22,8 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage>with LocalDatabaseOperationsMixin {
   UserModel? userModel;
+  bool isLoading=true;
+
   @override
   void initState() {
     getUser();
@@ -36,41 +31,55 @@ class _ProfilePageState extends State<ProfilePage>with LocalDatabaseOperationsMi
     
   }
   void getUser()async{
+    setState(() {
+      isLoading=true;
+    });
      List<Map<String,dynamic>> userList=await getAllData(LocalDatabaseTable.users);
      log('saved database data from userlist:$userList');
    try{
     if(userList.isNotEmpty){
-      userModel= UserModel.fromJson(userList.first);
+      setState(() {
+        userModel= UserModel.fromJson(userList.first);
+        isLoading=false;
+      });
+      log('user is: ${userModel?.username}');
       log('firstname:${userModel?.firstName ?? 'no name available'}');
     }
     else{
-      userModel=null;
+      setState(() {
+        userModel=null;
+        isLoading =false;
+      });
       log('returning null in usermodel');
     }   
    }
    catch(e){
-    
-      userModel=null;
-
+      setState(() {
+              userModel=null;
+              isLoading=false;
+      });
    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(
-        title: 'User Profile',
-        isCenterTitle: true,
-      ),
-      body: Center(
+      body:userModel==null && !isLoading? 
+      Center(child: CircularProgressIndicator()): 
+      Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.person,
+            CircleAvatar(
+              radius: 50,
+              child: userModel?.image==null? 
+              Icon(Icons.person,
             size: 80,
             color: AppColors.blackColor,
+            ):Image.network('${userModel?.image}',
+            scale: 1,),
             ).padBottom(
-              bottom:20.h 
+              bottom: 20.h
             ),
             Container(
               height: 200,
@@ -80,23 +89,28 @@ class _ProfilePageState extends State<ProfilePage>with LocalDatabaseOperationsMi
               ),
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      Text('Firstname:',
+                  Text('User Id: ${userModel?.id}',
                       style: context.textTheme.bodyMedium?.copyWith(
                         color: Colors.black 
-                      ),),
-                      const SizedBox(width: 5,),
-                      Text('${userModel?.firstName}',
-                      style:context.textTheme.bodyMedium?.copyWith(
-                        color: Colors.black
-
+                      ),).padBottom(
+                        bottom: 10.h
                       ),
-                      )
-                    ],
-                  ).padHorizontal(
-                    horizontal: 10.w
-                  )
+                    Text('Firstname: ${userModel?.username}',
+                      style: context.textTheme.bodyMedium?.copyWith(
+                        color: Colors.black 
+                      ),).padBottom(
+                        bottom: 10.h
+                      ),
+                  Text('Email: ${userModel?.email}',
+                  style:context.textTheme.bodyMedium?.copyWith(
+                        color: Colors.black
+                      ),).padBottom(
+                        bottom: 10.h
+                      ),
+                      Text('Gender: ${userModel?.gender}',
+                       style:context.textTheme.bodyMedium?.copyWith(
+                        color: Colors.black
+                      ),)
                 ],
                 
               ),
@@ -106,7 +120,7 @@ class _ProfilePageState extends State<ProfilePage>with LocalDatabaseOperationsMi
               ButtonWidget(
                 height: 50,
                 width: double.infinity,
-                buttonColor:  const Color.fromARGB(255, 5, 82, 9),
+                buttonColor:AppColors.primaryColor,
               onTap: (){
                 AppClearService().clearAllData();
               },

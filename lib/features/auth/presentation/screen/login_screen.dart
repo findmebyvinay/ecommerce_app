@@ -42,6 +42,15 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Text('Cheapify',
+                style: context.textTheme.displayMedium?.copyWith(
+                  color: AppColors.primaryColor,
+                ),),
+                Text('The cheapest online store!',
+                style: context.textTheme.bodyMedium?.copyWith(
+                  color: AppColors.lightGreen,
+                  fontStyle: FontStyle.italic
+                ),).padBottom(bottom: 20.h),
                  if (state.loginState.absNormalStatus ==
                           AbsNormalStatus.ERROR) ...{
                         Text(
@@ -78,17 +87,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   ).padBottom(bottom: 40.h),
                 
                   ButtonWidget(
+                    buttonColor: AppColors.primaryColor,
                     lable: 'LOGIN',
                     isLoading:state.loginState.absNormalStatus ==AbsNormalStatus.LOADING,
                     onTap: (){
                       log('user tapped button');
                       if(_formKey.currentState?.validate()??false){
-                        print('Button Tapped');
                         
                        getIt<LoginBloc>().add(LoginSubmittedEvent(
                           username: _usernameController.text,
                            password: _passwordController.text));
-                           print('Login Button Tapped');
                       }
                     })
                 

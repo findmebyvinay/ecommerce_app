@@ -48,7 +48,6 @@ emit(state.copyWith(
                 log('Access token found: ${token?.substring(0, 10)}...'); // Log first 10 chars for security
               } else {
                 log('No access token found in response');
-                print('Available keys in data: ${data.keys.toList()}');
               }
             } catch (e) {
               log('Error parsing token: $e');

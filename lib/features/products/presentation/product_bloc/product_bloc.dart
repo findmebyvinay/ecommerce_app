@@ -42,13 +42,13 @@ class ProductBloc extends Bloc<ProductEvent,ProductState> with LocalDatabaseOper
                 )
               ));
 
-          //  if(productModel.isNotEmpty) {
-          //   insertMultipleData(
-          //     LocalDatabaseTable.produts,
-          //     productModel.map((e)=> e.toJson()).toList(),
-          //   );
-          //   log('Successfully saved inside database:${LocalDatabaseTable.produts}');
-          //  }  
+           if(productModel.isNotEmpty) {
+            insertMultipleData(
+              LocalDatabaseTable.products,
+              productModel.map((e)=> e.toJson()).toList(),
+            );
+            log('Successfully saved inside database:${LocalDatabaseTable.products}');
+           }  
           }
          }
          catch(e){

@@ -4,7 +4,7 @@ class LocalDatabaseConstants {
 
 class LocalDatabaseTable {
   static const String users = 'users';
-  static const String produts='products';
+  static const String products='products';
   // static const String provinces = 'provinces';
   // static const String districts = 'districts';
   // static const String municipality = 'municipality';
@@ -40,8 +40,8 @@ class CreateTableQueries {
 
   static const String productsTable=
   """
-      CREATE TABLE IF NOT EXISTS ${LocalDatabaseTable.produts}(
-      id INTEGER PRIMARY KEY,
+      CREATE TABLE IF NOT EXISTS ${LocalDatabaseTable.products}(
+        id INTEGER PRIMARY KEY,
         title TEXT,
         description TEXT,
         category TEXT,

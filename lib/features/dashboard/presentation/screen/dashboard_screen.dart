@@ -1,4 +1,6 @@
 
+import 'package:ecom_app/core/constants/app_colors.dart';
+import 'package:ecom_app/features/cart_page/presentation/screen/cart_screen.dart';
 import 'package:ecom_app/features/products/presentation/screen/product_screen.dart';
 import 'package:ecom_app/features/profilepage/presentation/screen/profile_page.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +16,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   late final List<Widget> _pages;
   @override
   void initState() {
-    _pages=[ProductScreen(),ProfilePage(),];
+    _pages=[ProductScreen(),CartScreen(),ProfilePage(),];
     super.initState();
     
   }
@@ -41,18 +43,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Container(
       decoration: BoxDecoration(),
       child: BottomNavigationBar(
-        backgroundColor:  const Color.fromARGB(255, 5, 82, 9),
+        backgroundColor:  AppColors.primaryColor,
           currentIndex: _selectedIndex,
           onTap: (index) => setState(() {
                 _selectedIndex = index;
               }),
-          selectedItemColor:Colors.white,
-          unselectedItemColor: Colors.greenAccent,
+          selectedItemColor:AppColors.lightGreen,
+          unselectedItemColor:AppColors.whiteColor,
           showSelectedLabels: true,
           type: BottomNavigationBarType.fixed,
           items: const [
                          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Product'),
-            BottomNavigationBarItem(icon: Icon(Icons.people), label: 'Profile'),
+                         BottomNavigationBarItem(icon: Icon(Icons.add_shopping_cart), label: 'Cart'),
+                        BottomNavigationBarItem(icon: Icon(Icons.people), label: 'Profile'),
 
             
           ]),
