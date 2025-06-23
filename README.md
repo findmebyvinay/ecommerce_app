@@ -28,7 +28,8 @@ Inside feature it is divided into:
     - user must pass correct credentials to login.
     - after successful login users access token is saved in the shared preference to remember 
     user is logged in. Other data is stored in the database using sqflite.
--3:Next user navigates to the Dashboard Page.
+    
+    -3:Next user navigates to the Dashboard Page.
    - In the Dashboard Page it shows the list of the product that is fecthed from dummyjson API
    - these product data is also saved in the database making it available offline.
    - There is bottom navigation bar which shows DashBoardPage, Cart Page, and Profile page.
