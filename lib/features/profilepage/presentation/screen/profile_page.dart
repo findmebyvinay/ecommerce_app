@@ -64,8 +64,9 @@ class _ProfilePageState extends State<ProfilePage>with LocalDatabaseOperationsMi
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:userModel==null && !isLoading? 
-      Center(child: CircularProgressIndicator()): 
+      body:
+      // userModel==null && !isLoading? 
+      // Center(child: CircularProgressIndicator()): 
       Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

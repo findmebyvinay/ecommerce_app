@@ -49,19 +49,14 @@ class CreateTableQueries {
         discountPercentage REAL,
         rating REAL,
         stock INTEGER,
-        tags TEXT,
-        brand TEXT,
+        brand TEXT ,
         sku TEXT,
-        weight INTEGER,
-        dimensions TEXT,
+        weight REAL,
         warrantyInformation TEXT,
         shippingInformation TEXT,
         availabilityStatus TEXT,
-        reviews TEXT,
         returnPolicy TEXT,
         minimumOrderQuantity INTEGER,
-        meta TEXT,
-        images TEXT,
         thumbnail TEXT
       )
   """;

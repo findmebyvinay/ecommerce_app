@@ -7,19 +7,19 @@ class ProductModel {
   double? discountPercentage;
   double? rating;
   int? stock;
-  List<String>? tags;
+ // List<String>? tags;
   String? brand;
   String? sku;
   int? weight;
-  Dimensions? dimensions;
+  // Dimensions? dimensions;
   String? warrantyInformation;
   String? shippingInformation;
   String? availabilityStatus;
-  List<Reviews>? reviews;
+  // List<Reviews>? reviews;
   String? returnPolicy;
   int? minimumOrderQuantity;
-  Meta? meta;
-  List<String>? images;
+  // Meta? meta;
+  // List<String>? images;
   String? thumbnail;
 
   ProductModel({
@@ -31,19 +31,19 @@ class ProductModel {
     this.discountPercentage,
     this.rating,
     this.stock,
-    this.tags,
+   //this.tags,
     this.brand,
     this.sku,
     this.weight,
-    this.dimensions,
+    // this.dimensions,
     this.warrantyInformation,
     this.shippingInformation,
     this.availabilityStatus,
-    this.reviews,
+    // this.reviews,
     this.returnPolicy,
     this.minimumOrderQuantity,
-    this.meta,
-    this.images,
+    // this.meta,
+    // this.images,
     this.thumbnail,
   });
 
@@ -69,25 +69,25 @@ class ProductModel {
               ? double.tryParse(json['rating'] as String)
               : null,
       stock: json['stock'] as int?,
-      tags: (json['tags'] as List<dynamic>?)?.cast<String>(),
+      // tags:json['tags'] as String ,
       brand: json['brand'] as String?,
       sku: json['sku'] as String?,
       weight: json['weight'] as int?,
-      dimensions: json['dimensions'] != null
-          ? Dimensions.fromJson(json['dimensions'] as Map<String, dynamic>)
-          : null,
+      // dimensions: json['dimensions'] != null
+          // ? Dimensions.fromJson(json['dimensions'] as Map<String, dynamic>)
+          // : null,
       warrantyInformation: json['warrantyInformation'] as String?,
       shippingInformation: json['shippingInformation'] as String?,
       availabilityStatus: json['availabilityStatus'] as String?,
-      reviews: (json['reviews'] as List<dynamic>?)
-          ?.map((v) => Reviews.fromJson(v as Map<String, dynamic>))
-          .toList(),
+      // reviews: (json['reviews'] as List<dynamic>?)
+          // ?.map((v) => Reviews.fromJson(v as Map<String, dynamic>))
+          // .toList(),
       returnPolicy: json['returnPolicy'] as String?,
       minimumOrderQuantity: json['minimumOrderQuantity'] as int?,
-      meta: json['meta'] != null
-          ? Meta.fromJson(json['meta'] as Map<String, dynamic>)
-          : null,
-      images: (json['images'] as List<dynamic>?)?.cast<String>(),
+      // meta: json['meta'] != null
+          // ? Meta.fromJson(json['meta'] as Map<String, dynamic>)
+          // : null,
+      // images: (json['images'] as List<dynamic>?)?.cast<String>(),
       thumbnail: json['thumbnail'] as String?,
     );
   }
@@ -102,25 +102,25 @@ class ProductModel {
     data['discountPercentage'] = discountPercentage;
     data['rating'] = rating;
     data['stock'] = stock;
-    data['tags'] = tags;
+    // data['tags'] = tags;
     data['brand'] = brand;
     data['sku'] = sku;
     data['weight'] = weight;
-    if (dimensions != null) {
-      data['dimensions'] = dimensions!.toJson();
-    }
+    // if (dimensions != null) {
+      // data['dimensions'] = dimensions!.toJson();
+    // }
     data['warrantyInformation'] = warrantyInformation;
     data['shippingInformation'] = shippingInformation;
     data['availabilityStatus'] = availabilityStatus;
-    if (reviews != null) {
-      data['reviews'] = reviews!.map((v) => v.toJson()).toList();
-    }
+    // if (reviews != null) {
+      // data['reviews'] = reviews!.map((v) => v.toJson()).toList();
+    // }
     data['returnPolicy'] = returnPolicy;
     data['minimumOrderQuantity'] = minimumOrderQuantity;
-    if (meta != null) {
-      data['meta'] = meta!.toJson();
-    }
-    data['images'] = images;
+    // if (meta != null) {
+      // data['meta'] = meta!.toJson();
+    // }
+    // data['images'] = images;
     data['thumbnail'] = thumbnail;
     return data;
   }

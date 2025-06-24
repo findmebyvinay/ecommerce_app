@@ -47,7 +47,7 @@ class ProductBloc extends Bloc<ProductEvent,ProductState> with LocalDatabaseOper
               LocalDatabaseTable.products,
               productModel.map((e)=> e.toJson()).toList(),
             );
-            log('Successfully saved inside database:${LocalDatabaseTable.products}');
+            log('Successfully saved inside database:$productData');
            }  
           }
          }
