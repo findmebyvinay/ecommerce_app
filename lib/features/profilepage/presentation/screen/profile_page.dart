@@ -8,7 +8,6 @@ import 'package:ecom_app/core/services/app_clear_service.dart';
 import 'package:ecom_app/core/services/local_database/local_database_mixin.dart';
 import 'package:ecom_app/core/services/local_database/local_database_table.dart';
 import 'package:ecom_app/features/auth/domain/model/user_model.dart';
-import 'package:ecom_app/widget/app_bar_widget.dart';
 import 'package:ecom_app/widget/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -72,7 +71,7 @@ class _ProfilePageState extends State<ProfilePage>with LocalDatabaseOperationsMi
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CircleAvatar(
-              radius: 50,
+              radius: 50.r,
               child: userModel?.image==null? 
               Icon(Icons.person,
             size: 80,
@@ -83,10 +82,10 @@ class _ProfilePageState extends State<ProfilePage>with LocalDatabaseOperationsMi
               bottom: 20.h
             ),
             Container(
-              height: 200,
+              height: 200.h,
               width: double.infinity,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12)
+                borderRadius: BorderRadius.circular(12.r)
               ),
               child: Column(
                 children: [
@@ -119,7 +118,7 @@ class _ProfilePageState extends State<ProfilePage>with LocalDatabaseOperationsMi
               bottom: 20.h
             ),
               ButtonWidget(
-                height: 50,
+                height: 50.h,
                 width: double.infinity,
                 buttonColor:AppColors.primaryColor,
               onTap: (){

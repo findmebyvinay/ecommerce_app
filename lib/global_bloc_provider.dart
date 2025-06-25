@@ -6,6 +6,7 @@ import 'package:ecom_app/core/bloc/language_cubit.dart';
 import 'package:ecom_app/core/bloc/theme_cubit.dart';
 import 'package:ecom_app/core/services/get_it/service_locator.dart';
 import 'package:ecom_app/features/auth/presentation/Login_bloc/login_bloc.dart';
+import 'package:ecom_app/features/cart_page/presentation/cart_bloc/cart_bloc.dart';
 import 'package:ecom_app/features/products/presentation/product_bloc/product_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/single_child_widget.dart';
@@ -18,6 +19,7 @@ List<SingleChildWidget> _coreBlocProvider() {
     BlocProvider<LanguageCubit>.value(value: getIt<LanguageCubit>()),
     BlocProvider<LoginBloc>.value(value: getIt<LoginBloc>(),),
     BlocProvider<ProductBloc>.value(value: getIt<ProductBloc>(),),
+    BlocProvider<CartBloc>.value(value: CartBloc(),)
   ];
 }
 
