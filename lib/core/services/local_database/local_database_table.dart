@@ -5,6 +5,7 @@ class LocalDatabaseConstants {
 class LocalDatabaseTable {
   static const String users = 'users';
   static const String products='products';
+  static const String cartItems='cart_items'; 
   // static const String provinces = 'provinces';
   // static const String districts = 'districts';
   // static const String municipality = 'municipality';
@@ -51,13 +52,25 @@ class CreateTableQueries {
         stock INTEGER,
         brand TEXT ,
         sku TEXT,
-        weight REAL,
+        weight INTEGER,
         warrantyInformation TEXT,
         shippingInformation TEXT,
         availabilityStatus TEXT,
         returnPolicy TEXT,
         minimumOrderQuantity INTEGER,
         thumbnail TEXT
+      )
+  """;
+
+  static const String cartItemsTable=
+  """
+      CREATE TABLE IF NOT EXISTS ${LocalDatabaseTable.cartItems}(
+      id TEXT PRIMARY KEY,
+      title TEXT NOT NULL,
+      thumbnail TEXT NOT NULL,
+      price REAL NOT NULL,
+      category TEXT,
+      quantity INTEGER NOT NULL
       )
   """;
 //   static const String createProvincesTable =

@@ -53,7 +53,7 @@ class LocalDatabaseService {
         await Future.wait([
           txn.execute(CreateTableQueries.createUsersTable),
           txn.execute(CreateTableQueries.productsTable),
-
+          txn.execute(CreateTableQueries.cartItemsTable),
         ]);
       });
       log(" database tables created successfully.");
@@ -85,4 +85,6 @@ class LocalDatabaseService {
       log("Error deleting database: $e");
     }
   }
+
+  
 }

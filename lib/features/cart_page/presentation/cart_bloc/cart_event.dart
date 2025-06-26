@@ -11,8 +11,7 @@ final class AddToCartEvent extends CartEvent{
 
 final class RemoveCartEvent extends CartEvent{
   final String productId;
-  final int? quantity;
-RemoveCartEvent({required this.productId,this.quantity});
+RemoveCartEvent({required this.productId});
 }
 
 final class UpdateCartItemEvent extends CartEvent{

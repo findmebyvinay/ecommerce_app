@@ -6,8 +6,6 @@ import 'package:ecom_app/core/services/navigation_service.dart';
 import 'package:ecom_app/features/cart_page/domain/model/cart_item_model.dart';
 import 'package:ecom_app/features/cart_page/presentation/cart_bloc/cart_bloc.dart';
 import 'package:ecom_app/features/cart_page/presentation/cart_bloc/cart_event.dart';
-import 'package:ecom_app/features/cart_page/presentation/cart_bloc/cart_state.dart';
-import 'package:ecom_app/features/cart_page/presentation/screen/cart_screen.dart';
 import 'package:ecom_app/features/products/domain/model/product_model.dart';
 import 'package:ecom_app/widget/button_widget.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +23,21 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   int num = 1;
   void increment() {
+    if (widget.product.stock != null && num >= widget.product.stock!) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Max Quantity reached',
+            style: context.textTheme.bodyMedium?.copyWith(
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: AppColors.warningColor,
+          elevation: 4,
+          dismissDirection: DismissDirection.up,
+        ),
+      );
+    }
     setState(() {
       num++;
     });
@@ -250,13 +263,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ),
                         ),
                       ),
-                       GestureDetector(
-                        onTap: (){
-                          setModalState((){
+
+                      Expanded(
+                        child: Text('Reamining:${widget.product.stock}'),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          setModalState(() {
                             decrement();
                           });
                         },
-                         child: Container(
+                        child: Container(
                           width: 30.w,
                           height: 30.h,
                           decoration: BoxDecoration(
@@ -268,21 +285,39 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             size: 16,
                             color: AppColors.greyColor,
                           ),
-                                               ),
-                       ),
-                       10.horizontalSpace,
-                      Text('$num',style: context.textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20.sp
-                      )),
+                        ),
+                      ),
                       10.horizontalSpace,
-                       GestureDetector(
-                        onTap: (){
-                          setModalState((){
-                            increment();
-                          });
+                      Text(
+                        '$num',
+                        style: context.textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.sp,
+                        ),
+                      ),
+                      10.horizontalSpace,
+                      GestureDetector(
+                        onTap: () {
+                          if (widget.product.stock != null &&
+                              num > widget.product.stock!) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Max Quantity reached',
+                                  style: context.textTheme.bodyMedium?.copyWith(
+                                    color: AppColors.whiteColor,
+                                  ),
+                                ),
+                                backgroundColor: AppColors.warningColor,
+                                elevation: 4,
+                                dismissDirection: DismissDirection.up,
+                              ),
+                            );
+                            return;
+                          }
+                          setModalState(increment);
                         },
-                         child: Container(
+                        child: Container(
                           width: 30.w,
                           height: 30.h,
                           decoration: BoxDecoration(
@@ -294,33 +329,43 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             size: 16,
                             color: AppColors.greyColor,
                           ),
-                                               ),
-                       ),
+                        ),
+                      ),
                     ],
                   ).padHorizontal(horizontal: 10.w),
                   20.verticalSpace,
-                  ButtonWidget(
-                    lable: 'Add to Cart',
-                    buttonColor: AppColors.primaryColor,
-                    height: 50,
-                    width: double.infinity,
-                    onTap: (){
-                      final cartItem = CartItemModel(
-                        id: widget.product.id.toString(),
-                        title: widget.product.title.toString(),
-                        thumbnail: widget.product.thumbnail.toString(),
-                        price: widget.product.price!.toDouble(),
-                        quantity: num);
+                  Flexible(
+                    child: ButtonWidget(
+                      lable: 'Add to Cart',
+                      buttonColor: AppColors.primaryColor,
+                      height: 50,
+                      width: double.infinity,
+                      onTap: () {
+                        final cartItem = CartItemModel(
+                          id: widget.product.id.toString(),
+                          title: widget.product.title.toString(),
+                          thumbnail: widget.product.thumbnail.toString(),
+                          price: widget.product.price!.toDouble(),
+                          quantity: num,
+                        );
 
-                        context.read<CartBloc>().add(AddToCartEvent(cartItems: cartItem));
+                        context.read<CartBloc>().add(
+                          AddToCartEvent(cartItems: cartItem),
+                        );
                         getIt<NavigationService>().pop(context);
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Successully added the product in Cart'))
+                          SnackBar(
+                            content: Text(
+                              'Successully added the product in Cart',
+                            ),
+                          ),
                         );
                         setModalState(() {
-                          num=1;
+                          num = 1;
                         });
-                    })
+                      },
+                    ),
+                  ),
                 ],
               ),
             );

@@ -81,13 +81,25 @@ class _ProfilePageState extends State<ProfilePage>with LocalDatabaseOperationsMi
             ).padBottom(
               bottom: 20.h
             ),
+            Divider(
+              thickness: 0.5,
+              color: AppColors.darkGreyColor,
+            ),
             Container(
               height: 200.h,
               width: double.infinity,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.r)
+                borderRadius: BorderRadius.circular(12.r),
+                  // boxShadow: [
+                  //   BoxShadow(
+                  //     color: Colors.transparent,
+                  //     blurRadius: 5.r,
+                  //     offset: Offset(0, 2)
+                  // //   )
+                  // ]
               ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('User Id: ${userModel?.id}',
                       style: context.textTheme.bodyMedium?.copyWith(
@@ -95,27 +107,45 @@ class _ProfilePageState extends State<ProfilePage>with LocalDatabaseOperationsMi
                       ),).padBottom(
                         bottom: 10.h
                       ),
+                       Divider(
+              thickness: 0.5,
+              color: AppColors.darkGreyColor,
+            ),
                     Text('Firstname: ${userModel?.username}',
                       style: context.textTheme.bodyMedium?.copyWith(
                         color: Colors.black 
                       ),).padBottom(
                         bottom: 10.h
                       ),
+                       Divider(
+              thickness: 1,
+              color: AppColors.darkGreyColor,
+            ),
                   Text('Email: ${userModel?.email}',
                   style:context.textTheme.bodyMedium?.copyWith(
                         color: Colors.black
                       ),).padBottom(
                         bottom: 10.h
                       ),
+                       Divider(
+              thickness: 0.5,
+              color: AppColors.darkGreyColor,
+            ),
                       Text('Gender: ${userModel?.gender}',
                        style:context.textTheme.bodyMedium?.copyWith(
                         color: Colors.black
-                      ),)
+                      ),),
+                       Divider(
+              thickness: 0.5,
+              color: AppColors.darkGreyColor,
+            ),
                 ],
                 
               ),
-            ).padBottom(
-              bottom: 20.h
+            ).padHorizontal(horizontal: 25.w),
+             Divider(
+              thickness: 1,
+              color: AppColors.darkGreyColor,
             ),
               ButtonWidget(
                 height: 50.h,

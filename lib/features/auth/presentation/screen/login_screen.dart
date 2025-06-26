@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),),
                 Text('The cheapest online store!',
                 style: context.textTheme.bodyMedium?.copyWith(
-                  color: AppColors.lightGreen,
+                  color: AppColors.primaryColor,
                   fontStyle: FontStyle.italic
                 ),).padBottom(bottom: 20.h),
                  if (state.loginState.absNormalStatus ==

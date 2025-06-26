@@ -4,25 +4,26 @@ import 'package:equatable/equatable.dart';
 
 sealed class ProductState extends Equatable {
   final AbsNormalState<List<ProductModel>> productState;
-  const ProductState({required this.productState});
+  final String searchQuery;
+  const ProductState({required this.productState, this.searchQuery=''});
 
-  ProductState copyWith({AbsNormalState<List<ProductModel>>? productState}){
-    return ProductStateImpl(productState: productState ?? this.productState);
+  ProductState copyWith({AbsNormalState<List<ProductModel>>? productState,searchQuery}){
+    return ProductStateImpl(productState: productState ?? this.productState,searchQuery: searchQuery ?? this.searchQuery);
   }
 
   @override
-  List<Object?> get props=>[productState];
+  List<Object?> get props=>[productState,searchQuery];
 }
 
 final class ProductStateImpl extends ProductState{
- const ProductStateImpl({required super.productState});
+ const ProductStateImpl({required super.productState, super.searchQuery});
  
  @override
- ProductState copyWith({AbsNormalState<List<ProductModel>>? productState}){
-  return ProductStateImpl(productState: productState ?? this.productState); 
+ ProductState copyWith({AbsNormalState<List<ProductModel>>? productState,searchQuery}){
+  return ProductStateImpl(productState: productState ?? this.productState,searchQuery:  searchQuery ?? this.searchQuery); 
  }
  @override
- List<Object?> get props=>[productState];
+ List<Object?> get props=>[productState,searchQuery];
 }
 
 final class ProductIntial extends ProductState{

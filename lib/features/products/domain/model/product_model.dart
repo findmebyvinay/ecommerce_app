@@ -1,3 +1,6 @@
+
+import 'dart:developer';
+
 class ProductModel {
   int? id;
   String? title;
@@ -46,51 +49,61 @@ class ProductModel {
     // this.images,
     this.thumbnail,
   });
-
-  factory ProductModel.fromJson(Map<String, dynamic> json) {
-    return ProductModel(
-      id: json['id'] as int?,
-      title: json['title'] as String?,
-      description: json['description'] as String?,
-      category: json['category'] as String?,
-      price: (json['price'] is num)
-          ? (json['price'] as num).toDouble()
-          : (json['price'] is String)
-              ? double.tryParse(json['price'] as String)
-              : null,
-      discountPercentage: (json['discountPercentage'] is num)
-          ? (json['discountPercentage'] as num).toDouble()
-          : (json['discountPercentage'] is String)
-              ? double.tryParse(json['discountPercentage'] as String)
-              : null,
-      rating: (json['rating'] is num)
-          ? (json['rating'] as num).toDouble()
-          : (json['rating'] is String)
-              ? double.tryParse(json['rating'] as String)
-              : null,
-      stock: json['stock'] as int?,
-      // tags:json['tags'] as String ,
-      brand: json['brand'] as String?,
-      sku: json['sku'] as String?,
-      weight: json['weight'] as int?,
-      // dimensions: json['dimensions'] != null
-          // ? Dimensions.fromJson(json['dimensions'] as Map<String, dynamic>)
-          // : null,
-      warrantyInformation: json['warrantyInformation'] as String?,
-      shippingInformation: json['shippingInformation'] as String?,
-      availabilityStatus: json['availabilityStatus'] as String?,
-      // reviews: (json['reviews'] as List<dynamic>?)
-          // ?.map((v) => Reviews.fromJson(v as Map<String, dynamic>))
-          // .toList(),
-      returnPolicy: json['returnPolicy'] as String?,
-      minimumOrderQuantity: json['minimumOrderQuantity'] as int?,
-      // meta: json['meta'] != null
-          // ? Meta.fromJson(json['meta'] as Map<String, dynamic>)
-          // : null,
-      // images: (json['images'] as List<dynamic>?)?.cast<String>(),
-      thumbnail: json['thumbnail'] as String?,
-    );
-  }
+factory ProductModel.fromJson(Map<String, dynamic> json) {
+ try{
+     return ProductModel(
+    id: (json['id'] is num)
+        ? (json['id'] as num).toInt()
+        : (json['id'] is String)
+            ? int.tryParse(json['id'] as String)
+            : null,
+    title: json['title'] as String?,
+    description: json['description'] as String?,
+    category: json['category'] as String?,
+    price: (json['price'] is num)
+        ? (json['price'] as num).toDouble()
+        : (json['price'] is String)
+            ? double.tryParse(json['price'] as String)
+            : null,
+    discountPercentage: (json['discountPercentage'] is num)
+        ? (json['discountPercentage'] as num).toDouble()
+        : (json['discountPercentage'] is String)
+            ? double.tryParse(json['discountPercentage'] as String)
+            : null,
+    rating: (json['rating'] is num)
+        ? (json['rating'] as num).toDouble()
+        : (json['rating'] is String)
+            ? double.tryParse(json['rating'] as String)
+            : null,
+    stock: (json['stock'] is num)
+        ? (json['stock'] as num).toInt()
+        : (json['stock'] is String)
+            ? int.tryParse(json['stock'] as String)
+            : null,
+    brand: json['brand'] as String?,
+    sku: json['sku'] as String?,
+    weight: (json['weight'] is num)
+        ? (json['weight'] as num).toInt()
+        : (json['weight'] is String)
+            ? int.tryParse(json['weight'] as String)
+            : null,
+    warrantyInformation: json['warrantyInformation'] as String?,
+    shippingInformation: json['shippingInformation'] as String?,
+    availabilityStatus: json['availabilityStatus'] as String?,
+    returnPolicy: json['returnPolicy'] as String?,
+    minimumOrderQuantity: (json['minimumOrderQuantity'] is num)
+        ? (json['minimumOrderQuantity'] as num).toInt()
+        : (json['minimumOrderQuantity'] is String)
+            ? int.tryParse(json['minimumOrderQuantity'] as String)
+            : null,
+    thumbnail: json['thumbnail'] as String?,
+  );
+ }
+ catch(e){
+  log('Error parsing json data');
+  rethrow;
+ }
+}
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};

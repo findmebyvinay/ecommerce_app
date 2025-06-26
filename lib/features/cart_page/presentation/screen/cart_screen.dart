@@ -1,4 +1,6 @@
 // cart_screen.dart
+import 'dart:developer';
+
 import 'package:ecom_app/core/constants/app_colors.dart';
 import 'package:ecom_app/core/extension/build_context_extension.dart';
 import 'package:ecom_app/core/extension/widget_extensions.dart';
@@ -30,10 +32,10 @@ class CartScreen extends StatelessWidget {
           icon: Icon(Icons.arrow_back_ios),
           color: AppColors.whiteColor,
         ),
-        actions: [
+     actions: [
           BlocBuilder<CartBloc, CartState>(
             builder: (context, state) {
-              if (state.cartState.data== null) {
+              if (state.cartState.data != null && state.cartState.data!.isNotEmpty) {
                 return TextButton(
                   onPressed: () {
                     _showClearCartDialog(context);
@@ -47,7 +49,7 @@ class CartScreen extends StatelessWidget {
                   ),
                 );
               }
-              return SizedBox.shrink();
+              return const SizedBox.shrink();
             },
           ),
         ],
@@ -108,8 +110,8 @@ class CartScreen extends StatelessWidget {
           ButtonWidget(
             lable: 'Continue Shopping',
             buttonColor: AppColors.primaryColor,
-            height: 50,
-            width: 200,
+            height: 50.h,
+            width: 200.w,
             onTap: () {
               getIt<NavigationService>().navigateTo(RoutesName.dashboardScreen);
             },
@@ -192,8 +194,11 @@ class CartScreen extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     context.read<CartBloc>().add(
-                          RemoveCartEvent(productId: cartItem.id, quantity: cartItem.quantity)
+                          RemoveCartEvent(productId: cartItem.id)
                         );
+                        log('Delete button tapped');
+                        log(cartItem.id);
+                        log('${cartItem.quantity}');
                   },
                   child: Container(
                     padding: EdgeInsets.all(4),
@@ -214,11 +219,12 @@ class CartScreen extends StatelessWidget {
                         final newQuantity = cartItem.quantity - 1;
                         if (newQuantity > 0) {
                           context.read<CartBloc>().add(
-                                UpdateCartItemEvent(productId: cartItem.id, quantity: cartItem.quantity),
+                                UpdateCartItemEvent(productId: cartItem.id, quantity: cartItem.quantity-1),
                               );
+
                         } else {
                           context.read<CartBloc>().add(
-                                RemoveCartEvent(productId: cartItem.id, quantity: cartItem.quantity)
+                                RemoveCartEvent(productId: cartItem.id,)
                               );
                         }
                       },
@@ -252,6 +258,8 @@ class CartScreen extends StatelessWidget {
                         context.read<CartBloc>().add(
                              UpdateCartItemEvent(productId: cartItem.id, quantity: cartItem.quantity+1)
                             );
+                            log(cartItem.id);
+                            log('${UpdateCartItemEvent(productId: cartItem.id, quantity: cartItem.quantity+1)}');
                       },
                       child: Container(
                         width: 30.w,

@@ -1,20 +1,16 @@
-import 'dart:developer';
-
 import 'package:ecom_app/core/common/abs_normal_view.dart';
 import 'package:ecom_app/core/constants/app_colors.dart';
 import 'package:ecom_app/core/extension/build_context_extension.dart';
 import 'package:ecom_app/core/extension/widget_extensions.dart';
 import 'package:ecom_app/core/routes/routes_name.dart';
 import 'package:ecom_app/core/services/get_it/service_locator.dart';
-import 'package:ecom_app/core/services/local_database/local_database_mixin.dart';
-import 'package:ecom_app/core/services/local_database/local_database_table.dart';
 import 'package:ecom_app/core/services/navigation_service.dart';
+import 'package:ecom_app/core/utils/decore_utils.dart';
 import 'package:ecom_app/features/products/domain/model/product_model.dart';
 import 'package:ecom_app/features/products/presentation/product_bloc/product_bloc.dart';
 import 'package:ecom_app/features/products/presentation/product_bloc/product_event.dart';
 import 'package:ecom_app/features/products/presentation/product_bloc/product_state.dart';
 import 'package:ecom_app/widget/app_bar_widget.dart';
-import 'package:ecom_app/widget/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,8 +22,7 @@ class ProductScreen extends StatefulWidget {
   State<ProductScreen> createState() => _ProductScreenState();
 }
 
-class _ProductScreenState extends State<ProductScreen>
-    with LocalDatabaseOperationsMixin {
+class _ProductScreenState extends State<ProductScreen> {
   ProductModel? productModel;
   @override
   void initState() {
@@ -36,32 +31,30 @@ class _ProductScreenState extends State<ProductScreen>
     super.initState();
   }
 
-  void getProduct() async {
-    List<Map<String, dynamic>> productList = await getAllData(
-      LocalDatabaseTable.products,
-    );
-    log('saved products from database:$productList');
-    try {
-      if (productList.isNotEmpty) {
-        setState(() {
-          productModel = ProductModel.fromJson(productList.first);
-        });
-      } else {
-        setState(() {
-          productModel = null;
-          log('no available data');
-        });
-      }
-    } catch (e) {
-      productModel = null;
-      log('try catch exception occurred');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(customTitleWidget: SearchWidget()),
+      appBar: AppBarWidget(customTitleWidget:  Row(
+      children: [
+        Expanded(
+          child: SizedBox(
+            height: 40.h,
+            child: TextFormField(
+              decoration: inputDecoration(
+                context: context,
+                hintText: 'Search',
+                suffixIcon: Icon(Icons.search, size: 18.w),
+                borderRadius: 50.r,
+              ),
+              onChanged: (query){
+                context.read<ProductBloc>().add(SearchProductEvent(query));
+              },
+            ),
+          ),
+        ),
+      ],
+    ),),
+    backgroundColor: Colors.grey[200],
       body: BlocBuilder<ProductBloc, ProductState>(
         builder: (context, state) {
           // log('ProductState: ${state.productState.absNormalStatus}, Data length: ${state.productState.data?.length ?? 0}');
@@ -73,10 +66,10 @@ class _ProductScreenState extends State<ProductScreen>
               getIt<ProductBloc>().add(GetProductEvent(isToRefresh: true));
             },
             child:
-                state.productState.data == null ||
-                    state.productState.data!.isEmpty
-                ? const Center(child: Text('No products available'))
-                : GridView.builder(
+                // state.productState.data == null ||
+                //     state.productState.data!.isEmpty
+                // ? const Center(child: Text('No products available')):
+                 GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       mainAxisSpacing: 10,
                       crossAxisSpacing: 5,
@@ -86,7 +79,7 @@ class _ProductScreenState extends State<ProductScreen>
                       parent: AlwaysScrollableScrollPhysics(),
                     ),
                     shrinkWrap: true,
-                    itemCount: state.productState.data!.length,
+                    itemCount: state.productState.data?.length,
                     itemBuilder: (context, index) {
                       final product = state.productState.data![index];
                       // log('Product at index $index:${product.title}, Price:${product.price}');
