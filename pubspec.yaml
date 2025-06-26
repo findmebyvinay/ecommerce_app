@@ -111,6 +111,7 @@ dependencies:
   # Image 
   image_picker: ^1.1.2
   sqflite_common_ffi: ^2.3.6
+  lottie: ^3.3.1
 
 dev_dependencies:
   flutter_test:
@@ -133,6 +134,7 @@ flutter:
   assets:
     - assets/images/
     - assets/svg_images/
+    - assets/animations/
 
     # enviroment_config
     - .env.dev

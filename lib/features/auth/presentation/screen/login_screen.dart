@@ -14,6 +14,7 @@ import 'package:ecom_app/widget/text_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -37,6 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
         return Scaffold(
+          backgroundColor: AppColors.bgColor,
           body:Form(
             key: _formKey,
             child: Column(
@@ -46,6 +48,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: context.textTheme.displayMedium?.copyWith(
                   color: AppColors.primaryColor,
                 ),),
+                Lottie.asset('assets/animations/shooping.json',
+                height: 200.h,
+                width: double.infinity),
                 Text('The cheapest online store!',
                 style: context.textTheme.bodyMedium?.copyWith(
                   color: AppColors.primaryColor,

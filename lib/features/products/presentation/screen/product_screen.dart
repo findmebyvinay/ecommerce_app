@@ -34,7 +34,9 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(customTitleWidget:  Row(
+      appBar: AppBarWidget(
+        backgroundColor: AppColors.bgColor,
+        customTitleWidget:  Row(
       children: [
         Expanded(
           child: SizedBox(
@@ -54,7 +56,7 @@ class _ProductScreenState extends State<ProductScreen> {
         ),
       ],
     ),),
-    backgroundColor: Colors.grey[200],
+    backgroundColor:AppColors.bgColor,
       body: BlocBuilder<ProductBloc, ProductState>(
         builder: (context, state) {
           // log('ProductState: ${state.productState.absNormalStatus}, Data length: ${state.productState.data?.length ?? 0}');
@@ -91,7 +93,7 @@ class _ProductScreenState extends State<ProductScreen> {
                           );
                         },
                         child: Card(
-                          color: Colors.grey[200],
+                          color: AppColors.bgColor,
                           elevation: 3,
                           child: Column(
                             children: [

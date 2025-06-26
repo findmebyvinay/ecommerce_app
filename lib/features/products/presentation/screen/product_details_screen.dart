@@ -52,6 +52,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.bgColor,
       appBar: AppBar(
         title: Text('Product Details'),
         backgroundColor: AppColors.primaryColor,
@@ -191,6 +192,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   Future<dynamic> showModelsheet(BuildContext context) {
     return showModalBottomSheet(
+      backgroundColor: AppColors.bgColor,
       context: context,
       builder: (BuildContext context) {
         return StatefulBuilder(
@@ -199,7 +201,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               height: 600,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.grey[200],
+                color: AppColors.bgColor,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(12),
                   topRight: Radius.circular(12),
@@ -217,7 +219,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             color: AppColors.greyColor,
                           ),
                           borderRadius: BorderRadius.circular(12),
-                          color: Colors.grey[300],
+                          color: AppColors.whiteColor,
                         ),
                         height: 200.h,
                         width: 200.w,

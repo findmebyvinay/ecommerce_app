@@ -22,6 +22,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.bgColor,
       appBar: AppBar(
         title: Text('Shopping Cart'),
         backgroundColor: AppColors.primaryColor,
@@ -123,7 +124,7 @@ class CartScreen extends StatelessWidget {
 
   Widget _buildCartItemCard(BuildContext context, CartItemModel cartItem) {
     return Card(
-      color: Colors.grey[200],
+      color: AppColors.whiteColor,
       margin: EdgeInsets.only(bottom: 16.h),
       elevation: 2,
       shape: RoundedRectangleBorder(
@@ -298,7 +299,7 @@ class CartScreen extends StatelessWidget {
   Widget _buildCartSummary(BuildContext context, CartState state) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.bgColor,
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withValues(alpha: 0.3),
