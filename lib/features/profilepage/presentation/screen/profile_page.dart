@@ -71,92 +71,93 @@ class _ProfilePageState extends State<ProfilePage>with LocalDatabaseOperationsMi
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircleAvatar(
-              radius: 50.r,
-              child: userModel?.image==null? 
-              Icon(Icons.person,
-            size: 80,
-            color: AppColors.blackColor,
-            ):Image.network('${userModel?.image}',
-            scale: 1,),
-            ).padBottom(
-              bottom: 20.h
+            Expanded(
+              child: CircleAvatar(
+                radius: 50.r,
+                child: userModel?.image==null? 
+                Icon(Icons.person,
+              size: 80,
+              color: AppColors.blackColor,
+              ):Image.network('${userModel?.image}',
+              scale: 1,),
+              ).padBottom(
+                bottom: 20.h
+              ),
             ),
             Divider(
               thickness: 0.5,
               color: AppColors.darkGreyColor,
             ),
-            Container(
-              height: 200.h,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.r),
-                  // boxShadow: [
-                  //   BoxShadow(
-                  //     color: Colors.transparent,
-                  //     blurRadius: 5.r,
-                  //     offset: Offset(0, 2)
-                  // //   )
-                  // ]
+            Expanded(
+              child: Container(
+                height: 200.h,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.r),
+                    // boxShadow: [
+                    //   BoxShadow(
+                    //     color: Colors.transparent,
+                    //     blurRadius: 5.r,
+                    //     offset: Offset(0, 2)
+                    // //   )
+                    // ]
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('User Id: ${userModel?.id}',
+                        style: context.textTheme.bodyMedium?.copyWith(
+                          color: Colors.black 
+                        ),).padBottom(
+                          bottom: 10.h
+                        ),
+                         Divider(
+                thickness: 0.5,
+                color: AppColors.darkGreyColor,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('User Id: ${userModel?.id}',
-                      style: context.textTheme.bodyMedium?.copyWith(
-                        color: Colors.black 
-                      ),).padBottom(
-                        bottom: 10.h
-                      ),
-                       Divider(
-              thickness: 0.5,
-              color: AppColors.darkGreyColor,
-            ),
-                    Text('Firstname: ${userModel?.username}',
-                      style: context.textTheme.bodyMedium?.copyWith(
-                        color: Colors.black 
-                      ),).padBottom(
-                        bottom: 10.h
-                      ),
-                       Divider(
-              thickness: 1,
-              color: AppColors.darkGreyColor,
-            ),
-                  Text('Email: ${userModel?.email}',
-                  style:context.textTheme.bodyMedium?.copyWith(
-                        color: Colors.black
-                      ),).padBottom(
-                        bottom: 10.h
-                      ),
-                       Divider(
-              thickness: 0.5,
-              color: AppColors.darkGreyColor,
-            ),
-                      Text('Gender: ${userModel?.gender}',
-                       style:context.textTheme.bodyMedium?.copyWith(
-                        color: Colors.black
-                      ),),
-                       Divider(
-              thickness: 0.5,
-              color: AppColors.darkGreyColor,
-            ),
-                ],
-                
+                      Text('Firstname: ${userModel?.username}',
+                        style: context.textTheme.bodyMedium?.copyWith(
+                          color: Colors.black 
+                        ),).padBottom(
+                          bottom: 10.h
+                        ),
+                         Divider(
+                thickness: 1,
+                color: AppColors.darkGreyColor,
               ),
-            ).padHorizontal(horizontal: 25.w),
-             Divider(
-              thickness: 1,
-              color: AppColors.darkGreyColor,
+                    Text('Email: ${userModel?.email}',
+                    style:context.textTheme.bodyMedium?.copyWith(
+                          color: Colors.black
+                        ),).padBottom(
+                          bottom: 10.h
+                        ),
+                         Divider(
+                thickness: 0.5,
+                color: AppColors.darkGreyColor,
+              ),
+                        Text('Gender: ${userModel?.gender}',
+                         style:context.textTheme.bodyMedium?.copyWith(
+                          color: Colors.black
+                        ),),
+                         Divider(
+                thickness: 0.5,
+                color: AppColors.darkGreyColor,
+              ),
+                  ],
+                  
+                ),
+              ).padHorizontal(horizontal: 25.w),
             ),
               ButtonWidget(
                 height: 50.h,
-                width: double.infinity,
+                width: 150,
                 buttonColor:AppColors.primaryColor,
               onTap: (){
                 AppClearService().clearAllData();
               },
               lable: 'Logout',
               ),
+              20.verticalSpace,
           ],
         ).padHorizontal(
           horizontal: 20.w

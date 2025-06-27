@@ -267,7 +267,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       ),
 
                       Expanded(
-                        child: Text('Reamining:${widget.product.stock}'),
+                        child: Text('Remaining: ${widget.product.stock}',style: context.textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),),
                       ),
                       GestureDetector(
                         onTap: () {
@@ -301,7 +303,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       GestureDetector(
                         onTap: () {
                           if (widget.product.stock != null &&
-                              num > widget.product.stock!) {
+                              num == widget.product.stock!) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(

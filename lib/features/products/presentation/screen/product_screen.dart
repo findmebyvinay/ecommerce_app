@@ -93,8 +93,8 @@ class _ProductScreenState extends State<ProductScreen> {
                           );
                         },
                         child: Card(
-                          color: AppColors.bgColor,
-                          elevation: 3,
+                          color:AppColors.whiteColor,
+                          elevation: 8,
                           child: Column(
                             children: [
                               // Image.network('${productModel?.thumbnail}',scale: 4,),
@@ -118,7 +118,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                   height: double.infinity,
                                   width: double.infinity,
                                   decoration: BoxDecoration(
-                                    color: Colors.white,
+                                    color: AppColors.bgColor,
                                   ),
                                   child: Column(
                                     children: [
@@ -142,10 +142,12 @@ class _ProductScreenState extends State<ProductScreen> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Icon(
-                                            Icons.star,
-                                            size: 16,
-                                            color: AppColors.warningColor,
+                                          SizedBox(
+                                            child: Icon(
+                                              Icons.star,
+                                              size: 16,
+                                              color: AppColors.warningColor,
+                                            ),
                                           ),
                                           Text(
                                             '${product.rating}(${product.minimumOrderQuantity})',

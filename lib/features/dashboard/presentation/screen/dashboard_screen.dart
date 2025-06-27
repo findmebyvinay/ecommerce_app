@@ -48,8 +48,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
           onTap: (index) => setState(() {
                 _selectedIndex = index;
               }),
-          selectedItemColor:AppColors.lightGreen,
-          unselectedItemColor:AppColors.whiteColor,
+          selectedItemColor:AppColors.bgColor,
+          unselectedItemColor:AppColors.lightGreyColor,
           showSelectedLabels: true,
           type: BottomNavigationBarType.fixed,
           items: const [

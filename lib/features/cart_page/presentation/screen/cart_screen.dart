@@ -11,6 +11,7 @@ import 'package:ecom_app/features/cart_page/domain/model/cart_item_model.dart';
 import 'package:ecom_app/features/cart_page/presentation/cart_bloc/cart_bloc.dart';
 import 'package:ecom_app/features/cart_page/presentation/cart_bloc/cart_event.dart';
 import 'package:ecom_app/features/cart_page/presentation/cart_bloc/cart_state.dart';
+import 'package:ecom_app/features/esewa/esewa.dart';
 import 'package:ecom_app/widget/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -337,7 +338,11 @@ class CartScreen extends StatelessWidget {
             height: 50,
             width: double.infinity,
             onTap: () {
-              _showCheckoutDialog(context);
+              // _showCheckoutDialog(context);
+              Esewa esewa = Esewa();    
+  
+                esewa.pay();
+                log('${esewa.pay()}');
             },
           ),
         ],
@@ -376,43 +381,44 @@ class CartScreen extends StatelessWidget {
     );
   }
 
-  void _showCheckoutDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: AppColors.whiteColor,
-          title: Text('Checkout'),
-          content: Text('Proceed to checkout? This is a demo app.'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(context);
-              },
-              child: Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(context);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
+  // void _showCheckoutDialog(BuildContext context,CartItemModel cart) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         backgroundColor: AppColors.whiteColor,
+  //         title: Text('Checkout'),
+  //         content: Text('Proceed to checkout? This is a demo app.'),
+  //         actions: [
+  //           TextButton(
+  //             onPressed: () {
+  //               Navigator.of(context).pop(context);
+  //             },
+  //             child: Text('Cancel'),
+  //           ),
+  //           TextButton(
+  //             onPressed: () {
+  //               // Navigator.of(context).pop(context);
+  //               // ScaffoldMessenger.of(context).showSnackBar(
+  //               //   SnackBar(
                     
-                    content: Text('Order placed successfully! (Demo)'),
-                    backgroundColor:AppColors.whiteColor,
+  //               //     content: Text('Order placed successfully! (Demo)'),
+  //               //     backgroundColor:AppColors.whiteColor,
                     
-                  ),
+  //               //   ),
                   
-                );
-                // Optionally clear cart after successful order
-                // context.read<CartBloc>().add(ClearCartEvent());
-              },
-              child: Text('Checkout',style: context.textTheme.bodyMedium?.copyWith(
-                color: AppColors.blackColor
-              ),),
-            ),
-          ],
-        );
-      },
-    );
-  }
+  //               // );
+  //               // Optionally clear cart after successful order
+  //               // context.read<CartBloc>().add(ClearCartEvent());
+                
+  //             },
+  //             child: Text('Checkout',style: context.textTheme.bodyMedium?.copyWith(
+  //               color: AppColors.blackColor
+  //             ),),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 }
