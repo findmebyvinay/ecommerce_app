@@ -5,7 +5,7 @@ class CartItemModel {
   final double price;
   final String? category;
   final int quantity;
-  final int? stock;
+  final int stock;
 
   CartItemModel({
     required this.id,
@@ -14,7 +14,7 @@ class CartItemModel {
     required this.price,
     this.category,
     required this.quantity,
-    this.stock
+    required this.stock
   });
 
     CartItemModel copyWith({

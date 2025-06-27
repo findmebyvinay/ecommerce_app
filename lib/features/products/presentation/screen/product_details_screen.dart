@@ -351,6 +351,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           thumbnail: widget.product.thumbnail.toString(),
                           price: widget.product.price!.toDouble(),
                           quantity: num,
+                          stock: widget.product.stock!
                         );
 
                         context.read<CartBloc>().add(

@@ -18,7 +18,7 @@ class CartBloc extends Bloc<CartEvent,CartState> with LocalDatabaseOperationsMix
 
   void _onAddToCart(AddToCartEvent event,Emitter<CartState> emit)async{
 
-    if(event.cartItems.stock !=null && event.cartItems.stock!> event.cartItems.stock!){
+    if(event.cartItems.stock> event.cartItems.stock){
           emit(state.copyWith(
             cartState: state.cartState.copyWith(
               absNormalStatus: AbsNormalStatus.ERROR
@@ -71,7 +71,7 @@ class CartBloc extends Bloc<CartEvent,CartState> with LocalDatabaseOperationsMix
         final currentItems = List<CartItemModel>.from(state.cartState.data ?? []);
         final item= currentItems.firstWhere(
           (item)=> item.id == event.productId,
-          orElse:()=> CartItemModel(id: '', title: '', thumbnail: '', price: 0, quantity: 0)
+          orElse:()=> CartItemModel(id: '', title: '', thumbnail: '', price: 0, quantity: 0,stock: 0)
         );
         if(item.id.isEmpty){
           emit(state.copyWith(

@@ -224,11 +224,12 @@ class CartScreen extends StatelessWidget {
                                 UpdateCartItemEvent(productId: cartItem.id, quantity: cartItem.quantity-1),
                               );
 
-                        } else {
-                          context.read<CartBloc>().add(
-                                RemoveCartEvent(productId: cartItem.id,)
-                              );
-                        }
+                        } 
+                        // else {
+                        //   context.read<CartBloc>().add(
+                        //         RemoveCartEvent(productId: cartItem.id,)
+                        //       );
+                        // }
                       },
                       child: Container(
                         width: 30.w,
@@ -257,11 +258,19 @@ class CartScreen extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        context.read<CartBloc>().add(
+
+                        if( cartItem.quantity == cartItem.stock || cartItem.quantity>cartItem.stock){
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text('Max quantity reached',
+                          style: context.textTheme.bodyMedium,),backgroundColor: AppColors.warningColor,));
+                          log('Quanity is more than stock');
+                        }
+                        else{
+                          context.read<CartBloc>().add(
                              UpdateCartItemEvent(productId: cartItem.id, quantity: cartItem.quantity+1)
                             );
                             log(cartItem.id);
-                            log('${UpdateCartItemEvent(productId: cartItem.id, quantity: cartItem.quantity+1)}');
+                            
+                        }
                       },
                       child: Container(
                         width: 30.w,
@@ -340,7 +349,7 @@ class CartScreen extends StatelessWidget {
             onTap: () {
               // _showCheckoutDialog(context);
               Esewa esewa = Esewa();    
-  
+
                 esewa.pay();
                 log('${esewa.pay()}');
             },
