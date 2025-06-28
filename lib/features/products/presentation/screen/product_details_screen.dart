@@ -63,51 +63,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           icon: Icon(Icons.arrow_back_ios),
           color: AppColors.whiteColor,
         ),
-        // actions: [
-        //   BlocBuilder<CartBloc,CartState>(
-        //     builder:(context,state){
-        //          return Stack(
-        //         children: [
-        //           IconButton(
-        //             onPressed: () {
-        //               Navigator.push(
-        //                 context,
-        //                 MaterialPageRoute(
-        //                   builder: (context) => CartScreen(),
-        //                 ),
-        //               );
-        //             },
-        //             icon: Icon(Icons.shopping_cart),
-        //             color: AppColors.whiteColor,
-        //           ),
-        //           if (state.totalItemCount > 0)
-        //             Positioned(
-        //               right: 6,
-        //               top: 6,
-        //               child: Container(
-        //                 padding: EdgeInsets.all(2),
-        //                 decoration: BoxDecoration(
-        //                   color: Colors.red,
-        //                   borderRadius: BorderRadius.circular(10),
-        //                 ),
-        //                 constraints: BoxConstraints(
-        //                   minWidth: 16,
-        //                   minHeight: 16,
-        //                 ),
-        //                 child: Text(
-        //                   '${state.totalItemCount}',
-        //                   style: TextStyle(
-        //                     color: Colors.white,
-        //                     fontSize: 12,
-        //                   ),
-        //                   textAlign: TextAlign.center,
-        //                 ),
-        //               ),
-        //             ),
-        //         ],
-        //       );
-        //     } )
-        // ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -147,7 +102,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   // Product Rating and Minimum Order
                   Row(
                     children: [
-                      Icon(Icons.star, size: 16, color: AppColors.lightGreen),
+                      Icon(Icons.star, size: 16, color: AppColors.warningColor),
                       Text(
                         '${widget.product.rating} (${widget.product.minimumOrderQuantity})',
                         style: context.textTheme.bodySmall?.copyWith(
@@ -172,6 +127,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         )
                         .padHorizontal(horizontal: 16.w)
                         .padVertical(vertical: 10.h),
+                Text('${widget.product.shippingInformation}',
+                  style: context.textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.bold
+                  ),).padHorizontal(horizontal: 16)
                 ],
               ),
             ),
@@ -183,6 +142,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             buttonColor: AppColors.primaryColor,
             onTap: () {
               showModelsheet(context);
+              // CustomBottomSheet(product:ProductModel());
             },
           ).padBottom(bottom: 20.h),
         ],
@@ -360,6 +320,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         getIt<NavigationService>().pop(context);
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
+                            backgroundColor: AppColors.bgColor,
                             content: Text(
                               'Successully added the product in Cart',
                             ),

@@ -11,6 +11,7 @@ import 'package:ecom_app/features/cart_page/domain/model/cart_item_model.dart';
 import 'package:ecom_app/features/cart_page/presentation/cart_bloc/cart_bloc.dart';
 import 'package:ecom_app/features/cart_page/presentation/cart_bloc/cart_event.dart';
 import 'package:ecom_app/features/cart_page/presentation/cart_bloc/cart_state.dart';
+import 'package:ecom_app/features/cart_page/presentation/screen/widgets/custom_empty_cart.dart';
 import 'package:ecom_app/features/esewa/esewa.dart';
 import 'package:ecom_app/widget/button_widget.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +61,7 @@ class CartScreen extends StatelessWidget {
         builder: (context, state) {
         
           if (state.cartState.data==null) {
-            return _buildEmptyCart(context);
+            return CustomEmptyCart();
           }
 
           return Column(
@@ -83,45 +84,6 @@ class CartScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildEmptyCart(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.shopping_cart_outlined,
-            size: 100.w,
-            color: AppColors.greyColor,
-          ),
-          20.verticalSpace,
-          Text(
-            'Your cart is empty',
-            style: context.textTheme.headlineSmall?.copyWith(
-              color: AppColors.greyColor,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          10.verticalSpace,
-          Text(
-            'Add some products to get started',
-            style: context.textTheme.bodyMedium?.copyWith(
-              color: AppColors.greyColor,
-            ),
-          ),
-          30.verticalSpace,
-          ButtonWidget(
-            lable: 'Continue Shopping',
-            buttonColor: AppColors.primaryColor,
-            height: 50.h,
-            width: 200.w,
-            onTap: () {
-              getIt<NavigationService>().navigateTo(RoutesName.dashboardScreen);
-            },
-          ),
-        ],
-      ),
-    );
-  }
 
   Widget _buildCartItemCard(BuildContext context, CartItemModel cartItem) {
     return Card(
@@ -377,6 +339,7 @@ class CartScreen extends StatelessWidget {
             TextButton(
               onPressed: () {
                 context.read<CartBloc>().add(ClearCartEvent());
+                //context.read<CartBloc>().add(RemoveCartEvent(productId: ))
                 Navigator.of(context).pop();
               },
               child: Text(

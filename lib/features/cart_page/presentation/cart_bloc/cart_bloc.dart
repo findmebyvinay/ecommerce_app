@@ -120,6 +120,7 @@ class CartBloc extends Bloc<CartEvent,CartState> with LocalDatabaseOperationsMix
     void _onClearCart(ClearCartEvent event,Emitter<CartState> emit)async{
       emit(state.copyWith(
         cartState: state.cartState.copyWith(
+          data: List.empty(),
           absNormalStatus: AbsNormalStatus.SUCCESS
         )
       ));
