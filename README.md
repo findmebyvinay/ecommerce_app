@@ -1,6 +1,15 @@
 # ecom_app
 
-This is my practice project where i'm trying various RESTful API's from Dummyjson.
+This is an Ecommerce app called Cheapify which allows user to explore available product, add product to cart, make online payment using Esewa.
+All the data shown are dynamic which i have fetched from dummyjson api.
+Key Fetures of this Project includes:
+- 💡Interactive UI.
+- 💡Bloc for state Management.
+- 💡Dummy json api for Authentication and showing dynamic data.
+- 💡Shared Preference for storing light data.
+- 💡SQflite for Offline Database.
+- 💡Esewa for online payment Integration.
+   
 I'll provide details about this project below:
 
 
