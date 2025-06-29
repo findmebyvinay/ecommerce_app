@@ -18,9 +18,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
 
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+
+  @override
+  void initState() {
+    context.read<CartBloc>().add(LoadCartEvent());
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,7 +94,6 @@ class CartScreen extends StatelessWidget {
       ),
     );
   }
-
 
   Widget _buildCartItemCard(BuildContext context, CartItemModel cartItem) {
     return Card(
@@ -310,7 +320,11 @@ class CartScreen extends StatelessWidget {
             width: double.infinity,
             onTap: () {
               // _showCheckoutDialog(context);
-              Esewa esewa = Esewa();    
+              Esewa esewa = Esewa(
+                productId: '1',
+                totalQauntity: state.totalItemCount.toString(),
+                productPrice: state.totalAmount.toString(),
+              );    
 
                 esewa.pay();
                 log('${esewa.pay()}');
@@ -326,7 +340,7 @@ class CartScreen extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: AppColors.whiteColor,
+          backgroundColor: AppColors.bgColor,
           title: Text('Clear Cart'),
           content: Text('Are you sure you want to remove all items from your cart?'),
           actions: [
@@ -337,6 +351,9 @@ class CartScreen extends StatelessWidget {
               child: Text('Cancel'),
             ),
             TextButton(
+              style: ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(AppColors.whiteColor)
+              ),
               onPressed: () {
                 context.read<CartBloc>().add(ClearCartEvent());
                 //context.read<CartBloc>().add(RemoveCartEvent(productId: ))
@@ -352,45 +369,4 @@ class CartScreen extends StatelessWidget {
       },
     );
   }
-
-  // void _showCheckoutDialog(BuildContext context,CartItemModel cart) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         backgroundColor: AppColors.whiteColor,
-  //         title: Text('Checkout'),
-  //         content: Text('Proceed to checkout? This is a demo app.'),
-  //         actions: [
-  //           TextButton(
-  //             onPressed: () {
-  //               Navigator.of(context).pop(context);
-  //             },
-  //             child: Text('Cancel'),
-  //           ),
-  //           TextButton(
-  //             onPressed: () {
-  //               // Navigator.of(context).pop(context);
-  //               // ScaffoldMessenger.of(context).showSnackBar(
-  //               //   SnackBar(
-                    
-  //               //     content: Text('Order placed successfully! (Demo)'),
-  //               //     backgroundColor:AppColors.whiteColor,
-                    
-  //               //   ),
-                  
-  //               // );
-  //               // Optionally clear cart after successful order
-  //               // context.read<CartBloc>().add(ClearCartEvent());
-                
-  //             },
-  //             child: Text('Checkout',style: context.textTheme.bodyMedium?.copyWith(
-  //               color: AppColors.blackColor
-  //             ),),
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
 }

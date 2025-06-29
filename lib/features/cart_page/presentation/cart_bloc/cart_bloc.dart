@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:ecom_app/core/constants/enum.dart';
 import 'package:ecom_app/core/services/local_database/local_database_mixin.dart';
 import 'package:ecom_app/features/cart_page/domain/model/cart_item_model.dart';
@@ -14,10 +13,10 @@ class CartBloc extends Bloc<CartEvent,CartState> with LocalDatabaseOperationsMix
     on<RemoveCartEvent> (_onRemoveCart);
     on<UpdateCartItemEvent> (_onUpdateCart);
     on<ClearCartEvent> (_onClearCart);
+    on<LoadCartEvent>(_onLoadCart);
   }
 
   void _onAddToCart(AddToCartEvent event,Emitter<CartState> emit)async{
-
     if(event.cartItems.stock> event.cartItems.stock){
           emit(state.copyWith(
             cartState: state.cartState.copyWith(
@@ -30,18 +29,33 @@ class CartBloc extends Bloc<CartEvent,CartState> with LocalDatabaseOperationsMix
     final existingItemIndex = currentItems.indexWhere(
       (item)=> item.id== event.cartItems.id,
     );
+    final existingQuantity = existingItemIndex!=-1? currentItems[existingItemIndex].quantity:0;
+    final  totalQauntity= existingQuantity + event.cartItems.quantity;
+    if(totalQauntity>event.cartItems.stock){
+      emit(state.copyWith(
+        cartState: state.cartState.copyWith(
+          absNormalStatus: AbsNormalStatus.ERROR
+        )
+      ));
+      return;
+    }
     if(existingItemIndex !=-1){
       currentItems[existingItemIndex]= currentItems[existingItemIndex].copyWith(
-        quantity: currentItems[existingItemIndex].quantity + event.cartItems.quantity
+        // quantity: currentItems[existingItemIndex].quantity + event.cartItems.quantity
+        quantity: totalQauntity,
+        stock: event.cartItems.stock,
       );
-      
+      await updateCartItem(event.cartItems);
       }else{
         currentItems.add(event.cartItems);
+        insertCartItem(event.cartItems);
+        log('${currentItems.first}');
+        
       }
      emit(state.copyWith(
       cartState: state.cartState.copyWith(
         data: currentItems,
-        absNormalStatus: AbsNormalStatus.SUCCESS,
+        absNormalStatus: AbsNormalStatus.SUCCESS
       )
      ));
         }
@@ -64,6 +78,7 @@ class CartBloc extends Bloc<CartEvent,CartState> with LocalDatabaseOperationsMix
               absNormalStatus: AbsNormalStatus.SUCCESS
             )
           ));
+          deleteCartItems(event.productId);
         log('Removed the items: $updatedItems');
       }
 
@@ -115,13 +130,34 @@ class CartBloc extends Bloc<CartEvent,CartState> with LocalDatabaseOperationsMix
             absNormalStatus: AbsNormalStatus.SUCCESS
           )
         ));
+        final updatedItem= updatedItems.where((i)=> i.id ==event.productId);
+        updateCartItem(updatedItem.first);
       }
     
     void _onClearCart(ClearCartEvent event,Emitter<CartState> emit)async{
+      clearCart();
       emit(state.copyWith(
         cartState: state.cartState.copyWith(
           data: List.empty(),
           absNormalStatus: AbsNormalStatus.SUCCESS
         )
       ));
-    }}
+    }
+    
+    void _onLoadCart(LoadCartEvent event,Emitter<CartState> emit)async{
+      try{
+            final loadItems = await getCartItems();
+            emit(state.copyWith(
+              cartState: state.cartState.copyWith(
+                data: loadItems,
+                absNormalStatus: AbsNormalStatus.SUCCESS
+              )
+            ));
+            log('Successfully fecthed cart items from database');
+      }
+      catch(e){
+        log('Failed to Load cart Item from Database:$e');
+        rethrow;
+      }
+    }
+    }

@@ -6,6 +6,7 @@ import 'package:ecom_app/core/services/navigation_service.dart';
 import 'package:ecom_app/features/cart_page/domain/model/cart_item_model.dart';
 import 'package:ecom_app/features/cart_page/presentation/cart_bloc/cart_bloc.dart';
 import 'package:ecom_app/features/cart_page/presentation/cart_bloc/cart_event.dart';
+import 'package:ecom_app/features/cart_page/presentation/cart_bloc/cart_state.dart';
 import 'package:ecom_app/features/products/domain/model/product_model.dart';
 import 'package:ecom_app/widget/button_widget.dart';
 import 'package:flutter/material.dart';
@@ -127,10 +128,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         )
                         .padHorizontal(horizontal: 16.w)
                         .padVertical(vertical: 10.h),
-                Text('${widget.product.shippingInformation}',
-                  style: context.textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.bold
-                  ),).padHorizontal(horizontal: 16)
+                  Text(
+                    '${widget.product.shippingInformation}',
+                    style: context.textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ).padHorizontal(horizontal: 16),
                 ],
               ),
             ),
@@ -227,9 +230,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       ),
 
                       Expanded(
-                        child: Text('Remaining: ${widget.product.stock}',style: context.textTheme.bodyMedium?.copyWith(
+                        child: Text(
+                          'Remaining: ${widget.product.stock}',
+                          style: context.textTheme.bodyMedium?.copyWith(
                             fontWeight: FontWeight.bold,
-                          ),),
+                          ),
+                        ),
                       ),
                       GestureDetector(
                         onTap: () {
@@ -298,39 +304,51 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     ],
                   ).padHorizontal(horizontal: 10.w),
                   20.verticalSpace,
-                  Flexible(
-                    child: ButtonWidget(
-                      lable: 'Add to Cart',
-                      buttonColor: AppColors.primaryColor,
-                      height: 50,
-                      width: double.infinity,
-                      onTap: () {
-                        final cartItem = CartItemModel(
-                          id: widget.product.id.toString(),
-                          title: widget.product.title.toString(),
-                          thumbnail: widget.product.thumbnail.toString(),
-                          price: widget.product.price!.toDouble(),
-                          quantity: num,
-                          stock: widget.product.stock!
+                  BlocBuilder<CartBloc, CartState>(
+                    builder: (context, state) {
+                      final currentCartItems = state.cartState.data ?? [];
+                      final existingItem= currentCartItems.firstWhere(
+                        (item)=> item.id == widget.product.id.toString(),
+                        orElse:()=> CartItemModel(id: '', title: '', thumbnail:'', price:0, quantity: 0, stock: 0)
                         );
-
-                        context.read<CartBloc>().add(
-                          AddToCartEvent(cartItems: cartItem),
-                        );
-                        getIt<NavigationService>().pop(context);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            backgroundColor: AppColors.bgColor,
-                            content: Text(
-                              'Successully added the product in Cart',
-                            ),
-                          ),
-                        );
-                        setModalState(() {
-                          num = 1;
-                        });
-                      },
-                    ),
+                        final currentCartQuantity = existingItem.id.isEmpty ?0 : existingItem.quantity;
+                        final availableStock = widget.product.stock !=null ? (widget.product.stock!-currentCartQuantity): null;
+                        final isAddToCartEnabled = availableStock==null || availableStock>0;
+                      return Flexible(
+                        child: ButtonWidget(
+                          isDisabled: isAddToCartEnabled? false: true,
+                          lable: 'Add to Cart',
+                          buttonColor: AppColors.primaryColor,
+                          height: 50,
+                          width: double.infinity,
+                          onTap: () async {
+                            final cartItem = CartItemModel(
+                              id: widget.product.id.toString(),
+                              title: widget.product.title.toString(),
+                              thumbnail: widget.product.thumbnail.toString(),
+                              price: widget.product.price!.toDouble(),
+                              quantity: num,
+                              stock: widget.product.stock!,
+                            );
+                            context.read<CartBloc>().add(
+                              AddToCartEvent(cartItems: cartItem),
+                            );
+                            getIt<NavigationService>().pop(context);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                backgroundColor: AppColors.bgColor,
+                                content: Text(
+                                  'Successully added the product in Cart',
+                                ),
+                              ),
+                            );
+                            setModalState(() {
+                              num = 1;
+                            });
+                          },
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

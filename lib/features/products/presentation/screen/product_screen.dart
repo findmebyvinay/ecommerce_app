@@ -27,10 +27,8 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   void initState() {
     getIt<ProductBloc>().add(GetProductEvent());
-
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,12 +96,19 @@ class _ProductScreenState extends State<ProductScreen> {
                           child: Column(
                             children: [
                               // Image.network('${productModel?.thumbnail}',scale: 4,),
-                              state.productState.data?[index].thumbnail != null
-                                  ? Image.network(
+                              state.productState.data?[index].thumbnail == null
+                                  ?
+                                  Icon(Icons.image_not_supported) 
+                                  : 
+                                  Image.network(
                                       '${product.thumbnail}',
                                       scale: 4,
-                                    )
-                                  : Icon(Icons.image_not_supported),
+                                       errorBuilder: (context, error, stackTrace) =>
+                                    const Icon(
+                                      Icons.image_not_supported,
+                                      size: 40,
+                                    ),
+                                    ),
                               const SizedBox(height: 10),
                               Text(
                                 state.productState.data?[index].title ??
@@ -112,7 +117,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ).padBottom(bottom: 5.h),
-
+                 
                               Flexible(
                                 child: Container(
                                   height: double.infinity,
@@ -167,7 +172,7 @@ class _ProductScreenState extends State<ProductScreen> {
                               ),
                             ],
                           ),
-
+                 
                           //  ListTile(
                           //   leading:state.productState.data?[index].thumbnail!=null?
                           //   Image.network(
@@ -181,7 +186,7 @@ class _ProductScreenState extends State<ProductScreen> {
                           //     children: [
                           //       Text('Price:Rs${product.price?.toStringAsFixed(2)?? '0.00'}'),
                           //       Text('Category:${product.category ?? 'not categorized'}'),
-
+                 
                           //     ],
                           //   ),
                           // ),

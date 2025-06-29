@@ -70,7 +70,8 @@ class CreateTableQueries {
       thumbnail TEXT NOT NULL,
       price REAL NOT NULL,
       category TEXT,
-      quantity INTEGER NOT NULL
+      quantity INTEGER NOT NULL,
+      stock INTEGER
       )
   """;
 //   static const String createProvincesTable =

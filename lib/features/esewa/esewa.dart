@@ -6,12 +6,12 @@ import 'package:esewa_flutter_sdk/esewa_payment.dart';
 
 class Esewa{
   final String productId;
-  final String productName;
+  final String  totalQauntity;
   final String productPrice;
 Esewa({
-  this.productId='1',
-  this.productName='Chicken',
-  this.productPrice= '3000'
+   required this.productId,
+    required this.totalQauntity,
+  required  this.productPrice,
 });
   pay(){
  try{
@@ -21,7 +21,7 @@ Esewa({
           secretId: 'BhwIWQQADhIYSxILExMcAgFXFhcOBwAKBgAXEQ==',
         ), 
     esewaPayment:EsewaPayment( productId: productId,
-          productName: productName,
+          productName: totalQauntity,
           productPrice: productPrice,
            callbackUrl: 'https://jsonplaceholder.typicode.com/posts',
      ), 

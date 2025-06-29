@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:ecom_app/core/constants/typedef.dart';
 import 'package:ecom_app/core/services/local_database/local_database_service.dart';
+import 'package:ecom_app/core/services/local_database/local_database_table.dart';
+import 'package:ecom_app/features/cart_page/domain/model/cart_item_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 mixin LocalDatabaseOperationsMixin {
@@ -39,7 +41,85 @@ mixin LocalDatabaseOperationsMixin {
       rethrow;
     }
   }
+  Future<void> insertCartItem(CartItemModel item)async{
+    final db = await LocalDatabaseService().database;
+    try{
+      await db.insert(LocalDatabaseTable.cartItems,{
+        'id':item.id,
+        'title':item.title,
+        'thumbnail':item.thumbnail,
+        'price':item.price,
+        'category':item.category,
+        'quantity':item.quantity,
+        'stock':item.stock,
+      },
+      conflictAlgorithm: ConflictAlgorithm.replace 
+      );
+      log('${item.id}${item.title}${item.quantity}');
+      log('Succesfully added CartItem');
+    }
+    catch(e){
+      log('insert CartItem data failed:$e');
+      rethrow;
+    }
+  }
 
+  Future<void> updateCartItem(CartItemModel item)async{
+    final db= await LocalDatabaseService().database;
+    try{
+      await db.update(LocalDatabaseTable.cartItems,
+       {
+        'title':item.title,
+        'thumbnail':item.thumbnail,
+        'price':item.price,
+        'category':item.category,
+        'quantity':item.quantity,
+        'stock':item.stock,
+       },
+       where: 'id=?',
+       whereArgs: [item.id],
+       );
+       log('updated Cart with id :${item.title}');
+    }
+    catch(e){
+      log('Failed to update cartItems:$e');
+      rethrow;
+    }
+  }
+
+  Future<void> deleteCartItems(String id)async{
+    final db = await LocalDatabaseService().database;
+    try{
+        await db.delete(LocalDatabaseTable.cartItems,
+        where: 'id=?',
+        whereArgs: [id]);
+        log('deleted cart from database:$id');
+    }
+    catch(e){
+      log('Failed to Delete the CartItem:$e');
+      rethrow;
+    }
+  }
+  Future<void> clearCart()async{
+    final db = await LocalDatabaseService().database;
+    await db.delete(LocalDatabaseTable.cartItems);
+  }
+
+  Future<List<CartItemModel>> getCartItems()async{
+    final db = await LocalDatabaseService().database;
+    final result = await db.query(LocalDatabaseTable.cartItems);
+    log('Fecthed cart Items:$result');
+    return result.map((map)=> CartItemModel(
+      id: map['id'] as String,
+      title: map['title'] as String,
+      thumbnail: map['thumbnail']as String,
+      price: map['price'] as double,
+      quantity: map['quantity'] as int,
+      stock: map['stock']as int,
+      )).toList();
+      
+      
+  }
   FutureListMap getAllData(String tableName) async {
     final db = await LocalDatabaseService().database;
     try {
