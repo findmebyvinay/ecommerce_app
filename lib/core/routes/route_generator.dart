@@ -22,6 +22,10 @@ class RouteGenerator {
           settings: settings,
           builder: (_) => const DashboardScreen(),
         );
+        // case RoutesName.khalti:
+        // return MaterialPageRoute(
+        //   settings: settings,
+        //   builder: (_)=> const KhaltiSdk());
         case RoutesName.productDetail:
        if(argument is ProductModel){
          return MaterialPageRoute(

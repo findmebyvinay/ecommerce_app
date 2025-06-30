@@ -12,7 +12,6 @@ import 'package:ecom_app/features/cart_page/presentation/cart_bloc/cart_bloc.dar
 import 'package:ecom_app/features/cart_page/presentation/cart_bloc/cart_event.dart';
 import 'package:ecom_app/features/cart_page/presentation/cart_bloc/cart_state.dart';
 import 'package:ecom_app/features/cart_page/presentation/screen/widgets/custom_empty_cart.dart';
-import 'package:ecom_app/features/esewa/esewa.dart';
 import 'package:ecom_app/widget/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -319,15 +318,60 @@ class _CartScreenState extends State<CartScreen> {
             height: 50,
             width: double.infinity,
             onTap: () {
-              // _showCheckoutDialog(context);
-              Esewa esewa = Esewa(
-                productId: '1',
-                totalQauntity: state.totalItemCount.toString(),
-                productPrice: state.totalAmount.toString(),
-              );    
+              // // _showCheckoutDialog(context);
+              // Esewa esewa = Esewa(
+              //   productId: '1',
+              //   totalQauntity: state.totalItemCount.toString(),
+              //   productPrice: state.totalAmount.toString(),
+              // );    
+              // esewa.pay();
+               showDialog(
+      context: context,
+       builder: (BuildContext context){
+          return AlertDialog(
+            backgroundColor: AppColors.bgColor,
+            title: Text('Payment Success',
+            textAlign: TextAlign.center,
+            style: context.textTheme.displayMedium?..copyWith(
+              fontWeight: FontWeight.bold
+            ),
+            ),
+            content: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Your Order has been Successfully placed!'),
+                10.verticalSpace,
+                Text('PRODUCT DETAILS:',
+                 style: context.textTheme.bodyLarge?..copyWith(
+              fontWeight: FontWeight.bold
+            ),),
+                10.verticalSpace,
+                Text('Product Id: 1'),
+                10.verticalSpace,
+                Text('Total Product item:10'),
+                10.verticalSpace,
+                Text('Total Amount for the product: Rs.1000')
+              ],
+            ),
+            actions: [
+              TextButton(
+                style: ButtonStyle(
+                  backgroundColor: WidgetStatePropertyAll(AppColors.whiteColor)
+                ),
+                onPressed: (){
+                  getIt<NavigationService>().pop();
+                }, child: Text('Go Back',
+              style:context.textTheme.bodyMedium?.copyWith(
+                color: Colors.redAccent,
 
-                esewa.pay();
-                log('${esewa.pay()}');
+              ),
+              ))
+            ],
+          );
+       });
+           
+
             },
           ),
         ],

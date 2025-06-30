@@ -69,131 +69,142 @@ class _ProductScreenState extends State<ProductScreen> {
                 // state.productState.data == null ||
                 //     state.productState.data!.isEmpty
                 // ? const Center(child: Text('No products available')):
-                 GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 5,
-                      crossAxisCount: 2,
-                    ),
-                    physics: BouncingScrollPhysics(
-                      parent: AlwaysScrollableScrollPhysics(),
-                    ),
-                    shrinkWrap: true,
-                    itemCount: state.productState.data?.length,
-                    itemBuilder: (context, index) {
-                      final product = state.productState.data![index];
-                      // log('Product at index $index:${product.title}, Price:${product.price}');
-                      return GestureDetector(
-                        onTap: () {
-                          getIt<NavigationService>().navigateTo(
-                            RoutesName.productDetail,
-                            arguments: product,
-                          );
-                        },
-                        child: Card(
-                          color:AppColors.whiteColor,
-                          elevation: 8,
-                          child: Column(
-                            children: [
-                              // Image.network('${productModel?.thumbnail}',scale: 4,),
-                              state.productState.data?[index].thumbnail == null
-                                  ?
-                                  Icon(Icons.image_not_supported) 
-                                  : 
-                                  Image.network(
-                                      '${product.thumbnail}',
-                                      scale: 4,
-                                       errorBuilder: (context, error, stackTrace) =>
-                                    const Icon(
-                                      Icons.image_not_supported,
-                                      size: 40,
-                                    ),
-                                    ),
-                              const SizedBox(height: 10),
-                              Text(
-                                state.productState.data?[index].title ??
-                                    'no title',
-                                style: context.textTheme.bodyMedium?.copyWith(
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ).padBottom(bottom: 5.h),
-                 
-                              Flexible(
-                                child: Container(
-                                  height: double.infinity,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.bgColor,
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Rs ${product.price?.toStringAsFixed(2) ?? '0.00'} ',
-                                            style: context.textTheme.bodyMedium
-                                                ?.copyWith(
-                                                  fontWeight: FontWeight.w600,
-                                                  color: AppColors.primaryColor,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                ),
-                                          ),
-                                        ],
-                                      ).padHorizontal(horizontal: 10.w),
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            child: Icon(
-                                              Icons.star,
-                                              size: 16,
-                                              color: AppColors.warningColor,
+                 LayoutBuilder(
+                   builder: (BuildContext context, BoxConstraints constraints) {  
+                   return GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 5,
+                        crossAxisCount: 2,
+                      ),
+                      physics: BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics(),
+                      ),
+                      shrinkWrap: true,
+                      itemCount: state.productState.data?.length,
+                      itemBuilder: (context, index) {
+                        final product = state.productState.data![index];
+                        // log('Product at index $index:${product.title}, Price:${product.price}');
+                        return GestureDetector(
+                          onTap: () {
+                            getIt<NavigationService>().navigateTo(
+                              RoutesName.productDetail,
+                              arguments: product,
+                            );
+                          },
+                          child: Card(
+                            color:AppColors.whiteColor,
+                            elevation: 8,
+                            child: Column(
+                              children: [
+                                // Image.network('${productModel?.thumbnail}',scale: 4,),
+                                state.productState.data?[index].thumbnail == null
+                                    ?
+                                    Icon(Icons.image_not_supported) 
+                                    : 
+                                    Image.network(
+                                        '${product.thumbnail}',
+                                        scale: 4,
+                                        loadingBuilder: (context,child,loadingProgress){
+                                          if(loadingProgress ==null) return child;
+                                          return Center(
+                                            child: CircularProgressIndicator(
+                                              value: loadingProgress.expectedTotalBytes !=null? loadingProgress.cumulativeBytesLoaded/(loadingProgress.expectedTotalBytes ?? 1):null,
                                             ),
-                                          ),
-                                          Text(
-                                            '${product.rating}(${product.minimumOrderQuantity})',
-                                            style: context.textTheme.bodySmall
-                                                ?.copyWith(
-                                                  fontWeight: FontWeight.w300,
-                                                  color: AppColors.primaryColor,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                ),
-                                          ),
-                                        ],
-                                      ).padHorizontal(horizontal: 10.w),
-                                    ],
+                                          );
+                                        },
+                                         errorBuilder: (context, error, stackTrace) =>
+                                      const Icon(
+                                        Icons.image_not_supported,
+                                        size: 40,
+                                      ),
+                                      ),
+                                const SizedBox(height: 10),
+                                Text(
+                                  state.productState.data?[index].title ??
+                                      'no title',
+                                  style: context.textTheme.bodyMedium?.copyWith(
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ).padBottom(bottom: 5.h),
+                   
+                                Flexible(
+                                  child: Container(
+                                    height: double.infinity,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.bgColor,
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Rs ${product.price?.toStringAsFixed(2) ?? '0.00'} ',
+                                              style: context.textTheme.bodyMedium
+                                                  ?.copyWith(
+                                                    fontWeight: FontWeight.w600,
+                                                    color: AppColors.primaryColor,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                            ),
+                                          ],
+                                        ).padHorizontal(horizontal: 10.w),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              child: Icon(
+                                                Icons.star,
+                                                size: 16,
+                                                color: AppColors.warningColor,
+                                              ),
+                                            ),
+                                            Text(
+                                              '${product.rating}(${product.minimumOrderQuantity})',
+                                              style: context.textTheme.bodySmall
+                                                  ?.copyWith(
+                                                    fontWeight: FontWeight.w300,
+                                                    color: AppColors.primaryColor,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                            ),
+                                          ],
+                                        ).padHorizontal(horizontal: 10.w),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
+                   
+                            //  ListTile(
+                            //   leading:state.productState.data?[index].thumbnail!=null?
+                            //   Image.network(
+                            //     '${product.thumbnail}',
+                            //     width: 50,
+                            //     height: 50,
+                            //   ):Icon(Icons.image_not_supported),
+                            //   title: Text(state.productState.data?[index].title ?? 'no title'),
+                            //   subtitle: Column(
+                            //     crossAxisAlignment: CrossAxisAlignment.start,
+                            //     children: [
+                            //       Text('Price:Rs${product.price?.toStringAsFixed(2)?? '0.00'}'),
+                            //       Text('Category:${product.category ?? 'not categorized'}'),
+                   
+                            //     ],
+                            //   ),
+                            // ),
                           ),
-                 
-                          //  ListTile(
-                          //   leading:state.productState.data?[index].thumbnail!=null?
-                          //   Image.network(
-                          //     '${product.thumbnail}',
-                          //     width: 50,
-                          //     height: 50,
-                          //   ):Icon(Icons.image_not_supported),
-                          //   title: Text(state.productState.data?[index].title ?? 'no title'),
-                          //   subtitle: Column(
-                          //     crossAxisAlignment: CrossAxisAlignment.start,
-                          //     children: [
-                          //       Text('Price:Rs${product.price?.toStringAsFixed(2)?? '0.00'}'),
-                          //       Text('Category:${product.category ?? 'not categorized'}'),
-                 
-                          //     ],
-                          //   ),
-                          // ),
-                        ),
-                      );
-                    },
-                  ).padAll(value: 10),
+                        );
+                      },
+                    ).padAll(value: 10);
+          } ),
           );
         },
       ),

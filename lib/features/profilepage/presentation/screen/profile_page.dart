@@ -73,7 +73,7 @@ class _ProfilePageState extends State<ProfilePage>with LocalDatabaseOperationsMi
           children: [
             Expanded(
               child: CircleAvatar(
-                radius: 50.r,
+                radius: 80.r,
                 child: userModel?.image==null? 
                 Icon(Icons.person,
               size: 80,
@@ -83,10 +83,6 @@ class _ProfilePageState extends State<ProfilePage>with LocalDatabaseOperationsMi
               ).padBottom(
                 bottom: 20.h
               ),
-            ),
-            Divider(
-              thickness: 0.5,
-              color: AppColors.darkGreyColor,
             ),
             Expanded(
               child: Container(
@@ -105,6 +101,10 @@ class _ProfilePageState extends State<ProfilePage>with LocalDatabaseOperationsMi
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                      Divider(
+                thickness: 0.5,
+                color: AppColors.darkGreyColor,
+              ),
                     Text('User Id: ${userModel?.id}',
                         style: context.textTheme.bodyMedium?.copyWith(
                           color: Colors.black 
@@ -122,7 +122,7 @@ class _ProfilePageState extends State<ProfilePage>with LocalDatabaseOperationsMi
                           bottom: 10.h
                         ),
                          Divider(
-                thickness: 1,
+                thickness: 0.5,
                 color: AppColors.darkGreyColor,
               ),
                     Text('Email: ${userModel?.email}',

@@ -170,143 +170,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   topRight: Radius.circular(12),
                 ),
               ),
-              child: Column(
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 1,
-                            color: AppColors.greyColor,
-                          ),
-                          borderRadius: BorderRadius.circular(12),
-                          color: AppColors.whiteColor,
-                        ),
-                        height: 200.h,
-                        width: 200.w,
-                        child: widget.product.thumbnail != null
-                            ? Image.network(
-                                widget.product.thumbnail!,
-                                height: 100.h,
-                                width: 100.w,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) =>
-                                    const Icon(
-                                      Icons.image_not_supported,
-                                      size: 40,
-                                    ),
-                              )
-                            : const Icon(Icons.image_not_supported, size: 40),
-                      ),
-                      const SizedBox(width: 20),
-                      Expanded(
-                        child: Text(
-                          'Rs ${widget.product.price?.toStringAsFixed(2) ?? '0.00'}',
-                          style: context.textTheme.bodyMedium?.copyWith(
-                            color: AppColors.primaryColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 25,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ).padAll(value: 10),
-                  Divider(
-                    thickness: 0.5,
-                    color: AppColors.greyColor,
-                  ).padBottom(bottom: 20.h),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          'Quantity',
-                          style: context.textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-
-                      Expanded(
-                        child: Text(
-                          'Remaining: ${widget.product.stock}',
-                          style: context.textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          setModalState(() {
-                            decrement();
-                          });
-                        },
-                        child: Container(
-                          width: 30.w,
-                          height: 30.h,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.greyColor),
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: Icon(
-                            Icons.remove,
-                            size: 16,
-                            color: AppColors.greyColor,
-                          ),
-                        ),
-                      ),
-                      10.horizontalSpace,
-                      Text(
-                        '$num',
-                        style: context.textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.sp,
-                        ),
-                      ),
-                      10.horizontalSpace,
-                      GestureDetector(
-                        onTap: () {
-                          if (widget.product.stock != null &&
-                              num == widget.product.stock!) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  'Max Quantity reached',
-                                  style: context.textTheme.bodyMedium?.copyWith(
-                                    color: AppColors.whiteColor,
-                                  ),
-                                ),
-                                backgroundColor: AppColors.warningColor,
-                                elevation: 4,
-                                dismissDirection: DismissDirection.up,
-                              ),
-                            );
-                            return;
-                          }
-                          setModalState(increment);
-                        },
-                        child: Container(
-                          width: 30.w,
-                          height: 30.h,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.greyColor),
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: Icon(
-                            Icons.add,
-                            size: 16,
-                            color: AppColors.greyColor,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ).padHorizontal(horizontal: 10.w),
-                  20.verticalSpace,
-                  BlocBuilder<CartBloc, CartState>(
-                    builder: (context, state) {
-                      final currentCartItems = state.cartState.data ?? [];
+              child: BlocBuilder<CartBloc, CartState>(
+                builder: (context, state) {
+                    final currentCartItems = state.cartState.data ?? [];
                       final existingItem= currentCartItems.firstWhere(
                         (item)=> item.id == widget.product.id.toString(),
                         orElse:()=> CartItemModel(id: '', title: '', thumbnail:'', price:0, quantity: 0, stock: 0)
@@ -314,9 +180,148 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         final currentCartQuantity = existingItem.id.isEmpty ?0 : existingItem.quantity;
                         final availableStock = widget.product.stock !=null ? (widget.product.stock!-currentCartQuantity): null;
                         final isAddToCartEnabled = availableStock==null || availableStock>0;
-                      return Flexible(
+                  return Column(
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 1,
+                                color: AppColors.greyColor,
+                              ),
+                              borderRadius: BorderRadius.circular(12),
+                              color: AppColors.whiteColor,
+                            ),
+                            height: 200.h,
+                            width: 200.w,
+                            child: widget.product.thumbnail != null
+                                ? Image.network(
+                                    widget.product.thumbnail!,
+                                    height: 100.h,
+                                    width: 100.w,
+                                    fit: BoxFit.cover,
+                                    errorBuilder:
+                                        (context, error, stackTrace) =>
+                                            const Icon(
+                                              Icons.image_not_supported,
+                                              size: 40,
+                                            ),
+                                  )
+                                : const Icon(
+                                    Icons.image_not_supported,
+                                    size: 40,
+                                  ),
+                          ),
+                          const SizedBox(width: 20),
+                          Expanded(
+                            child: Text(
+                              'Rs ${widget.product.price?.toStringAsFixed(2) ?? '0.00'}',
+                              style: context.textTheme.bodyMedium?.copyWith(
+                                color: AppColors.primaryColor,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 25,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ).padAll(value: 10),
+                      Divider(
+                        thickness: 0.5,
+                        color: AppColors.greyColor,
+                      ).padBottom(bottom: 20.h),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Quantity',
+                              style: context.textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+
+                          Expanded(
+                            child: Text(
+                              'Remaining: ${widget.product.stock}',
+                              style: context.textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              setModalState(() {
+                                decrement();
+                              });
+                            },
+                            child: Container(
+                              width: 30.w,
+                              height: 30.h,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: AppColors.greyColor),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Icon(
+                                Icons.remove,
+                                size: 16,
+                                color: AppColors.greyColor,
+                              ),
+                            ),
+                          ),
+                          10.horizontalSpace,
+                          Text(
+                            '$num',
+                            style: context.textTheme.bodyMedium?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20.sp,
+                            ),
+                          ),
+                          10.horizontalSpace,
+                          GestureDetector(
+                            onTap: () {
+                              if (widget.product.stock != null &&
+                                  num == availableStock) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Max Quantity reached',
+                                      style: context.textTheme.bodyMedium
+                                          ?.copyWith(
+                                            color: AppColors.whiteColor,
+                                          ),
+                                    ),
+                                    backgroundColor: AppColors.warningColor,
+                                    elevation: 4,
+                                    dismissDirection: DismissDirection.up,
+                                  ),
+                                );
+                                return;
+                              }
+                              isAddToCartEnabled? setModalState(increment): null;
+                            },
+                            child: Container(
+                              width: 30.w,
+                              height: 30.h,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: AppColors.greyColor),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Icon(
+                                Icons.add,
+                                size: 16,
+                                color: AppColors.greyColor,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ).padHorizontal(horizontal: 10.w),
+                      20.verticalSpace,
+                      Flexible(
                         child: ButtonWidget(
-                          isDisabled: isAddToCartEnabled? false: true,
+                          isDisabled: isAddToCartEnabled ? false : true,
                           lable: 'Add to Cart',
                           buttonColor: AppColors.primaryColor,
                           height: 50,
@@ -336,9 +341,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             getIt<NavigationService>().pop(context);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                backgroundColor: AppColors.bgColor,
+                                backgroundColor: AppColors.whiteColor,
                                 content: Text(
                                   'Successully added the product in Cart',
+                                  style: context.textTheme.bodyLarge?.copyWith(
+                                    color: AppColors.primaryColor
+                                  ),
                                 ),
                               ),
                             );
@@ -347,10 +355,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             });
                           },
                         ),
-                      );
-                    },
-                  ),
-                ],
+                      ),
+                    ],
+                  );
+                },
               ),
             );
           },
