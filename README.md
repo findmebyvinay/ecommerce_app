@@ -11,7 +11,9 @@ Key Fetures of this Project includes:_
       💡SQflite for Offline Database.
       💡Esewa for online payment Integration.
       💡Clean Architecture 
-
+      
+   ![Cheapify App Design](https://github.com/user-attachments/assets/8e8d3234-e69e-49fb-a22a-c60a20cd8b2e)
+   
    ![Ecommerce App Design](https://github.com/user-attachments/assets/fd38ffb4-d609-4918-87ef-29ee4742615d)
 
 I'll provide details about this project below:
