@@ -12,7 +12,8 @@ Key Fetures of this Project includes:_
       💡Esewa for online payment Integration.
       💡Clean Architecture 
       
-   ![Cheapify App Design](https://github.com/user-attachments/assets/8e8d3234-e69e-49fb-a22a-c60a20cd8b2e)
+   ![Cheapify App Design (1)](https://github.com/user-attachments/assets/e14fa3af-9569-47f6-a10d-1232c3e3b578)
+
    
    ![Ecommerce App Design](https://github.com/user-attachments/assets/fd38ffb4-d609-4918-87ef-29ee4742615d)
 
