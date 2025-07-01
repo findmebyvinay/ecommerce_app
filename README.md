@@ -22,7 +22,7 @@ I'll provide details about this project below:
    - Core
    - Features
    - Widget
-   -Inside of Core it is divide into:
+   - Inside of Core it is divide into:
    - bloc
    - common
    - constants
@@ -32,7 +32,7 @@ I'll provide details about this project below:
    - routes
    - services
    - utils
-   - Inside feature it is divided into:
+   -  Inside feature it is divided into:
    - data
    - domain
    - presentation/bloc/screen
@@ -49,7 +49,7 @@ I'll provide details about this project below:
     3:Next user navigates to the Dashboard Page.
    - In the Dashboard Page it shows the list of the product that is fecthed from dummyjson API
    - these product data is also saved in the database making it available offline.
-   - There is bottom navigation bar which shows DashBoardPage, Cart Page, and Profile page.
+   - There is bottom navigation bar which shows ProductPage, Cart Page, and Profile page.
 
     4:After Login User Navigates to Product Screen.
    - Product Screen shows all the list of Available products.
