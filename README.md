@@ -1,10 +1,10 @@
 # ecom_app
 
-This is an Ecommerce app called Cheapify which allows user to explore available product, add product to cart, make online payment using Esewa.
+_This is an Ecommerce app called Cheapify which allows user to explore available product, add product to cart, make online payment using Esewa.
 All the data shown are dynamic which i have fetched from dummyjson api.
-Key Fetures of this Project includes:
+Key Fetures of this Project includes:_
       
-      💡_Interactive UI_.
+      💡Interactive UI.
       💡Bloc for state Management.
       💡Dummy json api for Authentication and showing dynamic data.
       💡Shared Preference for storing light data.
