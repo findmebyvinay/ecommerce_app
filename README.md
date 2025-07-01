@@ -4,12 +4,12 @@ This is an Ecommerce app called Cheapify which allows user to explore available 
 All the data shown are dynamic which i have fetched from dummyjson api.
 Key Fetures of this Project includes:
       
-      💡_ _Interactive UI_ _.
-      💡_ _Bloc for state Management_ _.
-      💡_ _Dummy json api for Authentication and showing dynamic data_ _.
-      💡_ _Shared Preference for storing light data._ _
-      💡_ _SQflite for Offline Database._ _
-      💡_ _Esewa for online payment Integration._ _
+      💡_Interactive UI.
+      💡Bloc for state Management.
+      💡Dummy json api for Authentication and showing dynamic data.
+      💡Shared Preference for storing light data.
+      💡SQflite for Offline Database.
+      💡Esewa for online payment Integration._
 
    ![Ecommerce App Design](https://github.com/user-attachments/assets/fd38ffb4-d609-4918-87ef-29ee4742615d)
 
