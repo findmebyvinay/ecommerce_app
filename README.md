@@ -6,10 +6,10 @@ Key Fetures of this Project includes:
       
       💡Interactive UI.
       💡Bloc for state Management.
-      💡 Dummy json api for Authentication and showing dynamic data.
+      💡Dummy json api for Authentication and showing dynamic data.
       💡Shared Preference for storing light data.
       💡SQflite for Offline Database.
-      💡 Esewa for online payment Integration.
+      💡Esewa for online payment Integration.
 
    ![Ecommerce App Design](https://github.com/user-attachments/assets/fd38ffb4-d609-4918-87ef-29ee4742615d)
 
