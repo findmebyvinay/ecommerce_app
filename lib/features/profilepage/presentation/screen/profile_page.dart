@@ -89,22 +89,20 @@ class _ProfilePageState extends State<ProfilePage>with LocalDatabaseOperationsMi
                 height: 200.h,
                 width: double.infinity,
                 decoration: BoxDecoration(
+                  border: Border.all(
+                    color: AppColors.primaryColor
+                  ),
                   borderRadius: BorderRadius.circular(12.r),
-                    // boxShadow: [
-                    //   BoxShadow(
-                    //     color: Colors.transparent,
-                    //     blurRadius: 5.r,
-                    //     offset: Offset(0, 2)
-                    // //   )
-                    // ]
+
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                      Divider(
-                thickness: 0.5,
-                color: AppColors.darkGreyColor,
-              ),
+              //         Divider(
+              //   thickness: 0.5,
+              //   color: AppColors.darkGreyColor,
+              // ),
+              20.verticalSpace,
                     Text('User Id: ${userModel?.id}',
                         style: context.textTheme.bodyMedium?.copyWith(
                           color: Colors.black 
@@ -145,8 +143,8 @@ class _ProfilePageState extends State<ProfilePage>with LocalDatabaseOperationsMi
               ),
                   ],
                   
-                ),
-              ).padHorizontal(horizontal: 25.w),
+                ).padAll(value: 10),
+              ).padHorizontal(horizontal: 20.w).padBottom(bottom: 20.h),
             ),
               ButtonWidget(
                 height: 50.h,

@@ -20,7 +20,8 @@ Esewa({
 });
   pay(){
  try{
-    EsewaFlutterSdk.initPayment(esewaConfig:EsewaConfig(
+    EsewaFlutterSdk.initPayment(
+      esewaConfig:EsewaConfig(
           environment: Environment.test,
           clientId:'JB0BBQ4aD0UqIThFJwAKBgAXEUkEGQUBBAwdOgABHD4DChwUAB0R',
           secretId: 'BhwIWQQADhIYSxILExMcAgFXFhcOBwAKBgAXEQ==',
