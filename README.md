@@ -1,15 +1,22 @@
 # ecom_app
 
-This is an Ecommerce app called Cheapify which allows user to explore available product, add product to cart, make online payment using Esewa.
+_This is an Ecommerce app called Cheapify which allows user to explore product, add product to cart, make online payment using Esewa.
 All the data shown are dynamic which i have fetched from dummyjson api.
-Key Fetures of this Project includes:
-   -  Interactive UI.💡
-   -  Bloc for state Management.💡
-   -   Dummy json api for Authentication and showing dynamic data.💡
-   -   Shared Preference for storing light data.💡
-   -   SQflite for Offline Database.💡
-   -   Esewa for online payment Integration.💡
+Key Fetures of this Project includes::_
+      
+      💡Interactive UI.
+      💡Bloc for state Management.
+      💡Dummy json api for Authentication and showing dynamic data.
+      💡Shared Preference for storing light data.
+      💡SQflite for Offline Database.
+      💡Esewa for online payment Integration.
+      💡Clean Architecture 
+      
+   ![Cheapify App Design (1)](https://github.com/user-attachments/assets/e14fa3af-9569-47f6-a10d-1232c3e3b578)
+
    
+   ![Ecommerce App Design](https://github.com/user-attachments/assets/fd38ffb4-d609-4918-87ef-29ee4742615d)
+
 I'll provide details about this project below:
 
 
@@ -18,7 +25,7 @@ I'll provide details about this project below:
    - Core
    - Features
    - Widget
-   -Inside of Core it is divide into:
+   - Inside of Core it is divide into:
    - bloc
    - common
    - constants
@@ -28,7 +35,7 @@ I'll provide details about this project below:
    - routes
    - services
    - utils
-   - Inside feature it is divided into:
+   -  Inside feature it is divided into:
    - data
    - domain
    - presentation/bloc/screen
@@ -45,7 +52,7 @@ I'll provide details about this project below:
     3:Next user navigates to the Dashboard Page.
    - In the Dashboard Page it shows the list of the product that is fecthed from dummyjson API
    - these product data is also saved in the database making it available offline.
-   - There is bottom navigation bar which shows DashBoardPage, Cart Page, and Profile page.
+   - There is bottom navigation bar which shows ProductPage, Cart Page, and Profile page.
 
     4:After Login User Navigates to Product Screen.
    - Product Screen shows all the list of Available products.
